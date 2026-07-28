@@ -68,7 +68,7 @@ export function WelcomeScreen() {
             <div className="absolute -left-1/4 -top-1/4 h-[600px] w-[600px] rounded-full bg-violet-600/20 blur-[150px]" />
             <div className="absolute -bottom-1/4 -right-1/4 h-[600px] w-[600px] rounded-full bg-emerald-500/20 blur-[150px]" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[450px] w-[450px] rounded-full bg-cyan-500/10 blur-[120px]" />
-            
+
             {/* Grid Pattern */}
             <div
               className="absolute inset-0 opacity-[0.08]"
@@ -113,7 +113,7 @@ export function WelcomeScreen() {
               <motion.div
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.6, type: 'spring', stiffness: 220 }}
+                transition={{ duration: 0.3, type: 'spring', stiffness: 220 }}
                 className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-white/20 bg-gradient-to-br from-violet-900/60 via-card/80 to-emerald-950/60 p-2 shadow-[0_0_50px_rgba(139,92,246,0.35)] backdrop-blur-2xl"
               >
                 <span className="font-mono text-2xl font-black tracking-wider bg-gradient-to-r from-violet-300 via-emerald-300 to-cyan-300 bg-clip-text text-transparent">
