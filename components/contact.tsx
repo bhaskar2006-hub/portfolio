@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Code2, Mail, MapPin, Send, CheckCircle2, Sparkles, User, MessageSquare } from 'lucide-react'
+import { Code2, Mail, MapPin, Send, CheckCircle2, Sparkles, User, MessageSquare, Copy, Check } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
 import { Section } from '@/components/section'
 import { profile } from '@/lib/resume'
@@ -10,6 +10,7 @@ import { profile } from '@/lib/resume'
 export function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle')
+  const [copied, setCopied] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -52,18 +53,38 @@ export function Contact() {
               </p>
 
               <div className="mt-8 space-y-4">
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="group flex items-center gap-3.5 rounded-2xl border border-border/80 bg-card p-4 transition-all hover:border-primary/50 hover:bg-secondary/60"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    <Mail className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-mono uppercase text-muted-foreground">Direct Email</div>
-                    <div className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{profile.email}</div>
-                  </div>
-                </a>
+                <div className="group flex items-center justify-between rounded-2xl border border-border/80 bg-card p-4 transition-all hover:border-primary/50">
+                  <a href={`mailto:${profile.email}`} className="flex items-center gap-3.5 flex-1 min-w-0">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      <Mail className="h-5 w-5" />
+                    </div>
+                    <div className="truncate">
+                      <div className="text-[11px] font-mono uppercase text-muted-foreground">Direct Email</div>
+                      <div className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors truncate">{profile.email}</div>
+                    </div>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(profile.email)
+                      setCopied(true)
+                      setTimeout(() => setCopied(false), 2000)
+                    }}
+                    className="ml-2 flex items-center gap-1 rounded-lg border border-border bg-secondary px-2.5 py-1.5 font-mono text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="h-3.5 w-3.5 text-emerald-400" />
+                        <span className="text-emerald-400">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-3.5 w-3.5" />
+                        <span>Copy</span>
+                      </>
+                    )}
+                  </button>
+                </div>
 
                 <div className="flex items-center gap-3.5 rounded-2xl border border-border/80 bg-card p-4">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">

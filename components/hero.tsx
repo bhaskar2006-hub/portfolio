@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowDown, Code2, Mail, Sparkles, Terminal } from 'lucide-react'
+import { ArrowDown, Code2, Download, Mail, Sparkles, Terminal } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
 import { profile } from '@/lib/resume'
 
@@ -91,6 +91,16 @@ export function Hero() {
             >
               View projects
               <ArrowDown className="h-4 w-4" />
+            </a>
+            <a
+              href="/Bhaskar_Reddy_Resume.pdf"
+              download="Bhaskar_Reddy_Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-primary/40 bg-primary/10 px-6 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-primary-foreground shadow-md"
+            >
+              <Download className="h-4 w-4" />
+              Download Resume
             </a>
             <a
               href="#contact"

@@ -4,6 +4,7 @@ import { Hero } from '@/components/hero'
 import { About, Skills } from '@/components/about-skills'
 import { Projects } from '@/components/projects'
 import { Experience } from '@/components/experience'
+import { Testimonials } from '@/components/testimonials'
 import { Contact } from '@/components/contact'
 
 export default function Page() {
@@ -16,8 +17,10 @@ export default function Page() {
       <Skills />
       <Projects />
       <Experience />
+      <Testimonials />
       <Contact />
     </main>
   )
 }
+
 

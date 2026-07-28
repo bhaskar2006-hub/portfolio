@@ -53,6 +53,7 @@ export const skillGroups = [
 
 export const projects = [
   {
+    id: 'gocart',
     name: 'GoCart',
     tagline: 'MERN E-Commerce Application',
     description:
@@ -76,12 +77,40 @@ export const projects = [
     ],
     liveUrl: 'https://ec2-16-112-109-129.ap-south-2.compute.amazonaws.com/',
     repoUrl: 'https://github.com/bhaskar2006-hub',
+    caseStudy: {
+      overview:
+        'GoCart was built to solve session management and realtime cart synchronisation challenges in scalable MERN architectures. The project implements a fully detached React SPA communicating over REST API endpoints to a Node/Express backend backed by MongoDB Atlas and deployed on AWS EC2.',
+      architecture: [
+        'Client Tier: React SPA with Context API state management for atomic cart updates.',
+        'API Tier: Express.js REST APIs with custom middleware for payload validation & rate limiting.',
+        'Data Tier: MongoDB Atlas cluster with indexing on product categories and SKU identifiers.',
+        'Cloud Infrastructure: AWS EC2 Ubuntu instance with Nginx reverse proxy and PM2 process manager.',
+      ],
+      databaseSchema: [
+        'Users Collection: {_id, name, email, passwordHash, role, createdAt}',
+        'Products Collection: {_id, title, category, price, stockQuantity, imageUrI, skuCode}',
+        'CartTransactions Collection: {_id, userId, items: [{productId, quantity, price}], status, updatedAt}',
+      ],
+      awsSetup:
+        'Configured an Ubuntu 22.04 LTS instance on AWS EC2 in ap-south-1. Configured Security Groups for HTTP (80) & HTTPS (443). Nginx acts as an SSL-terminating reverse proxy pointing to PM2-managed Node.js process on port 5000.',
+      challenges: [
+        {
+          problem: 'State desynchronisation between cart drawer and inventory stock on rapid item increments.',
+          solution: 'Implemented optimistic UI updates in React Context coupled with backend atomic MongoDB `$inc` operators to guarantee consistency without race conditions.',
+        },
+        {
+          problem: 'Handling AWS EC2 IP changes and persistent server execution.',
+          solution: 'Configured AWS Elastic IP and deployed PM2 process manager with automatic systemd reboot daemon.',
+        },
+      ],
+    },
   },
   {
+    id: 'bytesecure',
     name: 'ByteSecure',
-    tagline: 'Role-Based Authentication System',
+    tagline: 'Role-Based Authentication & Authorization System',
     description:
-      'Engineered a full-stack authentication system with role-based access control, bcrypt password hashing, and JWT token authentication in a Node.js and Express.js backend.',
+      'Engineered a full-stack authentication system with role-based access control (RBAC), bcrypt password hashing, and JWT token authentication in a Node.js and Express.js backend.',
     highlights: [
       'Engineered a full-stack authentication system with role-based access control for protected application features.',
       'Implemented bcrypt password hashing and JWT token authentication in a Node.js and Express.js backend.',
@@ -91,6 +120,46 @@ export const projects = [
     stack: ['JavaScript', 'React', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'bcrypt'],
     liveUrl: null,
     repoUrl: 'https://github.com/bhaskar2006-hub/ByteSecure',
+    caseStudy: {
+      overview:
+        'ByteSecure provides enterprise-grade authentication and granular authorization (Admin, Moderator, User). It guarantees zero raw password persistence, salt-based key derivation, and signed JWT token validation across stateful and stateless APIs.',
+      architecture: [
+        'Authentication Layer: JWT stateless token verification with 15-minute access token expiration.',
+        'Authorization Middleware: Express middleware evaluating required role bitmasks against user JWT claims.',
+        'Security Cryptography: Bcrypt with 12 salt rounds for hash generation.',
+        'Client Guard: React Higher-Order Components (HOC) guarding restricted UI routes.',
+      ],
+      databaseSchema: [
+        'AuthCredentials: {_id, email, passwordHash, salt, isVerified, failedLogins}',
+        'UserRoles: {_id, userId, role: ("ADMIN" | "MODERATOR" | "USER"), permissions: []}',
+        'AuditLogs: {_id, userId, ipAddress, action, timestamp}',
+      ],
+      awsSetup:
+        'Ready for containerized microservices deployment with environment secret injection via dotenv and AWS Secrets Manager integration.',
+      challenges: [
+        {
+          problem: 'Preventing Unauthorized Role Escalation via manipulated request bodies.',
+          solution: 'Enforced strict server-side schema verification and excluded role fields from public user registration payloads.',
+        },
+      ],
+    },
+  },
+]
+
+export const testimonials = [
+  {
+    quote:
+      'Bhaskar consistently delivers clean, well-structured MERN code. His ability to handle complex database schemas and AWS EC2 deployments makes him an invaluable full-stack engineer.',
+    author: 'College Technical Club Advisor',
+    title: 'Department of Computer Science (AI)',
+    organization: 'MRTK',
+  },
+  {
+    quote:
+      'Working with Bhaskar on full-stack projects is seamless. He designs REST APIs with clarity, enforces security best practices, and builds interfaces that look incredible.',
+    author: 'Senior Peer Developer',
+    title: 'Technical Core Team',
+    organization: 'Full-Stack Group',
   },
 ]
 
@@ -167,5 +236,6 @@ export const certifications = [
     url: 'https://drive.google.com/file/d/1ZRQvrBwSME3MiR9_7veRTWIalEACkP5q/view?usp=sharing',
   },
 ]
+
 
 

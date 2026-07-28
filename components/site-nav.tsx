@@ -55,8 +55,17 @@ export function SiteNav() {
             </a>
           ))}
           <a
+            href="/Bhaskar_Reddy_Resume.pdf"
+            download="Bhaskar_Reddy_Resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="ml-2 inline-flex items-center gap-1.5 rounded-md border border-primary/40 bg-primary/10 px-3.5 py-1.5 font-mono text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+          >
+            Resume PDF
+          </a>
+          <a
             href={`mailto:${profile.email}`}
-            className="ml-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+            className="ml-1.5 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
           >
             Get in touch
           </a>
