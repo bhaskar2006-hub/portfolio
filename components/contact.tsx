@@ -255,13 +255,6 @@ export function Contact() {
           </div>
         </div>
       </motion.div>
-
-      <footer className="mt-10 flex flex-col items-center justify-between gap-2 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row">
-        <p>
-          © {new Date().getFullYear()} {profile.name}. All rights reserved.
-        </p>
-        <p className="font-mono text-xs">Built with Next.js &amp; Framer Motion</p>
-      </footer>
     </Section>
   )
 }

@@ -117,6 +117,7 @@ function TechIcon({ tech, className = 'h-8 w-8' }: { tech: Tech; className?: str
 
 export function TechStack() {
   const [angle, setAngle] = useState(0)
+  const [isMounted, setIsMounted] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const [dragStartX, setDragStartX] = useState(0)
   const [hoveredTech, setHoveredTech] = useState<Tech | null>(null)
@@ -134,11 +135,16 @@ export function TechStack() {
   }, [isDragging, hoveredTech])
 
   useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isMounted) return
     requestRef.current = requestAnimationFrame(updateAngle)
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current)
     }
-  }, [updateAngle])
+  }, [isMounted, updateAngle])
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true)
@@ -176,13 +182,13 @@ export function TechStack() {
   // Calculate position & depth scale for each tech node
   const nodesWithPositions = techs.map((tech, i) => {
     const nodeAngle = angle + (i * 2 * Math.PI) / techs.length
-    const x = Math.sin(nodeAngle) * radiusX
+    const x = Number((Math.sin(nodeAngle) * radiusX).toFixed(3))
     const z = Math.cos(nodeAngle) // -1 (back) to 1 (front)
-    const y = Math.cos(nodeAngle) * radiusY
+    const y = Number((Math.cos(nodeAngle) * radiusY).toFixed(3))
 
     // Perspective projection scale (front = 1.15, back = 0.55)
-    const scale = 0.85 + z * 0.3
-    const opacity = 0.35 + (z + 1) * 0.325 // 0.35 to 1.0
+    const scale = Number((0.85 + z * 0.3).toFixed(3))
+    const opacity = Number((0.35 + (z + 1) * 0.325).toFixed(3)) // 0.35 to 1.0
     const zIndex = Math.round((z + 1) * 100)
 
     return { tech, x, y, z, scale, opacity, zIndex }
@@ -220,13 +226,15 @@ export function TechStack() {
         {/* Orbiting Tech Icon Nodes */}
         {sortedNodes.map(({ tech, x, y, scale, opacity, zIndex }) => {
           const isSelected = hoveredTech?.name === tech.name
+          const currentScale = isSelected ? Number((scale * 1.35).toFixed(3)) : scale
 
           return (
             <motion.div
               key={tech.name}
               className="absolute cursor-pointer"
+              suppressHydrationWarning
               style={{
-                transform: `translate3d(${x}px, ${y}px, 0px) scale(${isSelected ? scale * 1.35 : scale})`,
+                transform: `translate3d(${x}px, ${y}px, 0px) scale(${currentScale})`,
                 opacity: isSelected ? 1 : opacity,
                 zIndex: isSelected ? 999 : zIndex,
               }}
