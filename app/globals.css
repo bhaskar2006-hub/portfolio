@@ -32,6 +32,7 @@
   --radius-2xl: calc(var(--radius) * 1.8);
 }
 
+/* Theme Configuration: Warm Ember & Orange Palette */
 :root {
   color-scheme: light;
   --background: oklch(0.99 0.003 60);
