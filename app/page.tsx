@@ -14,9 +14,9 @@ export default function Page() {
       <WelcomeScreen />
       <SiteNav />
       <Hero />
-      <About />
-      <Skills />
       <Projects />
+      <Skills />
+      <About />
       <Experience />
       <Testimonials />
       <Contact />

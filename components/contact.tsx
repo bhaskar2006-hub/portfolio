@@ -45,22 +45,22 @@ export function Contact() {
           {/* Left Column: Info & Links */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <h2 className="text-balance text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-                Let&apos;s build something great together.
+              <h2 className="text-balance text-3xl font-extrabold tracking-tight text-foreground md:text-4xl uppercase">
+                LET&apos;S BUILD SOMETHING
               </h2>
-              <p className="mt-4 leading-relaxed text-muted-foreground">
-                I&apos;m currently available for full-stack internships, entry-level developer roles, and freelance projects. Send a message and I&apos;ll get back to you promptly.
+              <p className="mt-4 leading-relaxed text-muted-foreground text-sm sm:text-base">
+                I&apos;m currently open to software engineering internships, full-stack opportunities and interesting projects.
               </p>
 
-              <div className="mt-8 space-y-4">
-                <div className="group flex items-center justify-between rounded-2xl border border-border/80 bg-slate-50/80 p-4 transition-all hover:border-primary/50 hover:bg-white shadow-sm">
-                  <a href={`mailto:${profile.email}`} className="flex items-center gap-3.5 flex-1 min-w-0">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                      <Mail className="h-5 w-5" />
+              <div className="mt-7 space-y-3.5">
+                <div className="group flex items-center justify-between rounded-2xl border border-border/80 bg-slate-50/80 p-3.5 transition-all hover:border-primary/50 hover:bg-white shadow-2xs">
+                  <a href={`mailto:${profile.email}`} className="flex items-center gap-3 flex-1 min-w-0">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                      <Mail className="h-4 w-4" />
                     </div>
                     <div className="truncate">
-                      <div className="text-[11px] font-mono uppercase text-muted-foreground font-semibold">Direct Email</div>
-                      <div className="text-sm font-bold text-foreground group-hover:text-primary transition-colors truncate">{profile.email}</div>
+                      <div className="text-[10px] font-mono uppercase text-muted-foreground font-semibold">Direct Email</div>
+                      <div className="text-xs font-bold text-foreground group-hover:text-primary transition-colors truncate">{profile.email}</div>
                     </div>
                   </a>
                   <button
@@ -70,7 +70,7 @@ export function Contact() {
                       setCopied(true)
                       setTimeout(() => setCopied(false), 2000)
                     }}
-                    className="ml-2 flex items-center gap-1 rounded-xl border border-border bg-white px-2.5 py-1.5 font-mono text-xs text-muted-foreground hover:text-foreground transition-colors shadow-sm cursor-pointer"
+                    className="ml-2 flex items-center gap-1 rounded-xl border border-border bg-white px-2.5 py-1.5 font-mono text-xs text-muted-foreground hover:text-foreground transition-colors shadow-2xs cursor-pointer"
                   >
                     {copied ? (
                       <>
@@ -86,45 +86,55 @@ export function Contact() {
                   </button>
                 </div>
 
-                <div className="flex items-center gap-3.5 rounded-2xl border border-border/80 bg-slate-50/80 p-4 shadow-sm">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-primary">
-                    <MapPin className="h-5 w-5" />
+                <div className="flex items-center gap-3 rounded-2xl border border-border/80 bg-slate-50/80 p-3.5 shadow-2xs">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-primary">
+                    <MapPin className="h-4 w-4" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono uppercase text-muted-foreground font-semibold">Location</div>
-                    <div className="text-sm font-bold text-foreground">{profile.location}</div>
+                    <div className="text-[10px] font-mono uppercase text-muted-foreground font-semibold">Location</div>
+                    <div className="text-xs font-bold text-foreground">{profile.location}</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Social profiles */}
-            <div className="mt-10 pt-6 border-t border-border/80">
-              <div className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3 font-semibold">Connect on Social</div>
-              <div className="flex items-center gap-3 flex-wrap">
+            {/* Quick Action CTAs */}
+            <div className="mt-8 pt-6 border-t border-border/80 space-y-3">
+              <div className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold">Connect &amp; Profiles</div>
+              <div className="flex items-center gap-2.5 flex-wrap">
                 <a
                   href={profile.links.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 rounded-xl border border-border bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 transition-all hover:border-primary/50 hover:text-primary shadow-sm"
+                  className="flex items-center gap-1.5 rounded-xl border border-border bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 transition-all hover:border-primary/50 hover:text-primary shadow-2xs"
                 >
-                  <GithubIcon className="h-4 w-4" /> GitHub
+                  <GithubIcon className="h-3.5 w-3.5" />
+                  <span>GitHub</span>
                 </a>
                 <a
                   href={profile.links.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 rounded-xl border border-border bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 transition-all hover:border-blue-500 hover:text-blue-500 shadow-sm"
+                  className="flex items-center gap-1.5 rounded-xl border border-border bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 transition-all hover:border-blue-500 hover:text-blue-500 shadow-2xs"
                 >
-                  <LinkedinIcon className="h-4 w-4" /> LinkedIn
+                  <LinkedinIcon className="h-3.5 w-3.5" />
+                  <span>LinkedIn</span>
                 </a>
                 <a
-                  href={profile.links.leetcode}
+                  href={`mailto:${profile.email}`}
+                  className="flex items-center gap-1.5 rounded-xl border border-border bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 transition-all hover:border-orange-500 hover:text-primary shadow-2xs"
+                >
+                  <Mail className="h-3.5 w-3.5" />
+                  <span>Email</span>
+                </a>
+                <a
+                  href="/Bhaskar_Reddy_Resume.pdf"
+                  download="Bhaskar_Reddy_Resume.pdf"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 rounded-xl border border-border bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 transition-all hover:border-amber-500 hover:text-amber-500 shadow-sm"
+                  className="flex items-center gap-1.5 rounded-xl border border-primary/40 bg-orange-500/10 px-3.5 py-2 text-xs font-bold text-primary transition-all hover:bg-primary hover:text-white shadow-2xs"
                 >
-                  <Code2 className="h-4 w-4" /> LeetCode
+                  <span>Download Resume</span>
                 </a>
               </div>
             </div>

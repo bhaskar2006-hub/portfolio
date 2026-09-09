@@ -16,39 +16,28 @@ export const profile = {
 
 export const skillGroups = [
   {
-    label: 'Languages',
-    items: ['JavaScript (ES6+)', 'C++', 'Python', 'SQL'],
-  },
-  {
     label: 'Frontend',
-    items: ['React', 'JSX', 'HTML5', 'CSS3', 'responsive user interfaces'],
+    items: ['React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'HTML', 'CSS'],
   },
   {
     label: 'Backend',
-    items: [
-      'Node.js',
-      'Express.js',
-      'Flask',
-      'REST APIs',
-      'JWT',
-      'bcrypt',
-      'asynchronous programming',
-    ],
+    items: ['Node.js', 'Express.js', 'REST APIs', 'JWT', 'Authentication'],
   },
   {
-    label: 'Databases & Cloud',
-    items: ['MongoDB', 'SQL', 'AWS EC2'],
+    label: 'Database',
+    items: ['MongoDB', 'PostgreSQL', 'Prisma', 'Mongoose'],
   },
   {
-    label: 'Core & Tools',
-    items: [
-      'Data Structures and Algorithms',
-      'OOP',
-      'database design',
-      'Git',
-      'GitHub',
-      'npm',
-    ],
+    label: 'DevOps / Cloud',
+    items: ['Docker', 'AWS', 'Vercel', 'Git', 'GitHub'],
+  },
+  {
+    label: 'Programming',
+    items: ['Java', 'C++', 'Python'],
+  },
+  {
+    label: 'Foundations',
+    items: ['DSA', 'OOP', 'DBMS', 'Computer Networks'],
   },
 ]
 
@@ -321,13 +310,13 @@ export const testimonials = [
 
 export const experience = [
   {
-    role: 'Full-Stack Web Developer & Technical Core Member',
-    company: 'Freelance / College Technical Club',
+    role: 'Full-Stack Web Developer',
+    company: 'Technical Core Member / Freelance',
     period: 'Jun 2026 – Jul 2026',
     points: [
-      'Developed and deployed responsive web applications using React, Node.js, Express.js, and MongoDB.',
-      'Collaborated with peers to design database schemas, integrate cloud services, and build maintainable application features.',
-      'Configured application deployment on AWS EC2 and delivered responsive interfaces across devices.',
+      'Developed responsive web applications using React, Node.js, Express and MongoDB.',
+      'Designed REST APIs and database schemas for application workflows and authentication.',
+      'Configured and deployed applications using AWS EC2, Nginx and PM2.',
     ],
   },
 ]

@@ -24,7 +24,7 @@ import {
 import { GithubIcon, LinkedinIcon, LeetcodeIcon } from '@/components/brand-icons'
 import { profile } from '@/lib/resume'
 
-type CodeTab = 'developer' | 'server' | 'database' | 'aws'
+type CodeTab = 'developer' | 'server' | 'database' | 'cloud'
 
 const codeSnippets: Record<CodeTab, { filename: string; language: string; lines: { text: string; indent: number; color?: string }[] }> = {
   developer: {
@@ -33,13 +33,13 @@ const codeSnippets: Record<CodeTab, { filename: string; language: string; lines:
     lines: [
       { text: '// Full-Stack Engineer Profile', indent: 0, color: 'text-slate-400' },
       { text: 'const engineer = {', indent: 0, color: 'text-orange-400 font-semibold' },
-      { text: `name: '${profile.name}',`, indent: 1, color: 'text-slate-100' },
-      { text: "focus: 'Full-Stack Web Systems & Cloud',", indent: 1, color: 'text-slate-100' },
-      { text: "degree: 'B.Tech CSE (Artificial Intelligence)',", indent: 1, color: 'text-slate-100' },
-      { text: 'cgpa: 9.33,', indent: 1, color: 'text-amber-400 font-bold' },
-      { text: "coreStack: ['React', 'Node.js', 'Express', 'MongoDB'],", indent: 1, color: 'text-orange-300' },
-      { text: "cloud: ['AWS EC2', 'Nginx', 'PM2', 'REST APIs'],", indent: 1, color: 'text-yellow-300' },
-      { text: 'status: "Ready to ship & build",', indent: 1, color: 'text-emerald-400' },
+      { text: "role: 'Full-Stack Developer',", indent: 1, color: 'text-slate-100' },
+      { text: "focus: 'Web Systems & Cloud',", indent: 1, color: 'text-slate-100' },
+      { text: "frontend: ['React', 'TypeScript'],", indent: 1, color: 'text-orange-300' },
+      { text: "backend: ['Node.js', 'Express'],", indent: 1, color: 'text-amber-300' },
+      { text: "database: ['MongoDB'],", indent: 1, color: 'text-yellow-300' },
+      { text: "auth: ['JWT', 'Google OAuth'],", indent: 1, color: 'text-orange-200' },
+      { text: "deployment: ['Vercel', 'Render'],", indent: 1, color: 'text-emerald-400' },
       { text: '};', indent: 0, color: 'text-orange-400 font-semibold' },
       { text: '', indent: 0 },
       { text: 'export default engineer;', indent: 0, color: 'text-orange-400 font-bold' },
@@ -50,51 +50,49 @@ const codeSnippets: Record<CodeTab, { filename: string; language: string; lines:
     language: 'Express.js',
     lines: [
       { text: "import express from 'express';", indent: 0, color: 'text-orange-400 font-semibold' },
-      { text: "import { authenticateJWT } from './middleware/auth';", indent: 0, color: 'text-orange-400 font-semibold' },
+      { text: "import { verifyToken, requireRole } from './auth';", indent: 0, color: 'text-orange-400 font-semibold' },
       { text: '', indent: 0 },
       { text: 'const app = express();', indent: 0, color: 'text-slate-100' },
       { text: "app.use('/api/v1/auth', authRouter);", indent: 0, color: 'text-orange-300' },
-      { text: "app.use('/api/v1/orders', authenticateJWT, orderRouter);", indent: 0, color: 'text-amber-300' },
+      { text: "app.use('/api/v1/projects', verifyToken, requireRole('MEMBER'), projectRouter);", indent: 0, color: 'text-amber-300' },
       { text: '', indent: 0 },
       { text: 'app.listen(5000, () => {', indent: 0, color: 'text-orange-400' },
-      { text: "  console.log('⚡ REST API running on AWS EC2 :5000');", indent: 1, color: 'text-slate-400' },
+      { text: "  console.log('⚡ REST API running on :5000');", indent: 1, color: 'text-slate-400' },
       { text: '});', indent: 0, color: 'text-orange-400' },
     ],
   },
   database: {
-    filename: 'models.ts',
+    filename: 'schema.ts',
     language: 'MongoDB',
     lines: [
-      { text: "import mongoose, { Schema } from 'mongoose';", indent: 0, color: 'text-orange-400 font-semibold' },
+      { text: "import { Schema, model } from 'mongoose';", indent: 0, color: 'text-orange-400 font-semibold' },
       { text: '', indent: 0 },
-      { text: 'const UserSchema = new Schema({', indent: 0, color: 'text-orange-400 font-semibold' },
-      { text: '  email: { type: String, required: true, unique: true },', indent: 1, color: 'text-slate-100' },
-      { text: '  passwordHash: { type: String, select: false },', indent: 1, color: 'text-slate-100' },
-      { text: "  role: { type: String, enum: ['ADMIN', 'USER'], default: 'USER' },", indent: 1, color: 'text-orange-300' },
-      { text: '  cartSession: { type: Schema.Types.ObjectId, ref: "Cart" }', indent: 1, color: 'text-amber-300' },
+      { text: 'const IssueSchema = new Schema({', indent: 0, color: 'text-orange-400 font-semibold' },
+      { text: '  title: { type: String, required: true },', indent: 1, color: 'text-slate-100' },
+      { text: "  status: { type: String, enum: ['TODO', 'IN_PROGRESS', 'DONE'] },", indent: 1, color: 'text-orange-300' },
+      { text: "  priority: { type: String, enum: ['LOW', 'MEDIUM', 'HIGH', 'URGENT'] },", indent: 1, color: 'text-amber-300' },
+      { text: '  assignee: { type: Schema.Types.ObjectId, ref: "User" }', indent: 1, color: 'text-yellow-300' },
       { text: '}, { timestamps: true });', indent: 0, color: 'text-orange-400' },
     ],
   },
-  aws: {
+  cloud: {
     filename: 'deploy.sh',
-    language: 'Bash / AWS',
+    language: 'Docker / Cloud',
     lines: [
       { text: '#!/bin/bash', indent: 0, color: 'text-slate-400' },
-      { text: 'echo "🚀 Deploying Full-Stack app to AWS EC2..."', indent: 0, color: 'text-amber-400' },
-      { text: 'git pull origin main', indent: 0, color: 'text-slate-100' },
-      { text: 'npm run build', indent: 0, color: 'text-orange-300' },
-      { text: 'pm2 reload ecosystem.config.js --env production', indent: 0, color: 'text-orange-400' },
-      { text: 'sudo systemctl reload nginx', indent: 0, color: 'text-slate-100' },
-      { text: 'echo "✅ SSL Terminated & Proxy active on :443"', indent: 0, color: 'text-emerald-400 font-bold' },
+      { text: 'echo "🚀 Building container image..."', indent: 0, color: 'text-amber-400' },
+      { text: 'docker build -t devflow-backend:latest .', indent: 0, color: 'text-slate-100' },
+      { text: 'npm run test && npm run build', indent: 0, color: 'text-orange-300' },
+      { text: 'echo "✅ Deployed to Vercel (FE) & Render (BE)"', indent: 0, color: 'text-emerald-400 font-bold' },
     ],
   },
 }
 
 const floatingBadges = [
-  { label: 'React 19', pos: '-top-3 left-4', color: 'border-orange-500/40 text-orange-600 bg-white/90 shadow-lg' },
+  { label: 'React + TS', pos: '-top-3 left-4', color: 'border-orange-500/40 text-orange-600 bg-white/90 shadow-lg' },
   { label: 'Node & Express', pos: 'top-1/4 -right-4', color: 'border-amber-500/40 text-amber-700 bg-white/90 shadow-lg' },
   { label: 'MongoDB Atlas', pos: 'bottom-24 -left-4', color: 'border-orange-500/40 text-orange-600 bg-white/90 shadow-lg' },
-  { label: 'AWS EC2 Deployed', pos: '-bottom-3 right-6', color: 'border-amber-600/40 text-amber-800 bg-white/90 shadow-lg' },
+  { label: 'Vercel + Render', pos: '-bottom-3 right-6', color: 'border-amber-600/40 text-amber-800 bg-white/90 shadow-lg' },
 ]
 
 export function Hero() {
@@ -144,7 +142,9 @@ export function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-600" />
             </span>
-            <span className="font-semibold text-orange-600">Available for Internships &amp; Full-Stack Roles</span>
+            <span className="font-semibold text-orange-600 uppercase tracking-wide">
+              Available for Internships &amp; Full-Stack Roles
+            </span>
           </motion.div>
 
           {/* Main Hero Heading */}
@@ -168,7 +168,7 @@ export function Hero() {
             className="mt-3 flex items-center gap-2 font-mono text-lg font-bold text-primary sm:text-xl"
           >
             <Terminal className="h-5 w-5 text-primary shrink-0" />
-            <span>{profile.title} &amp; AI Undergraduate</span>
+            <span>Full-Stack Developer &amp; AI Undergraduate</span>
           </motion.div>
 
           {/* Bio Description */}
@@ -178,9 +178,8 @@ export function Hero() {
             transition={{ duration: 0.55, delay: 0.18 }}
             className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
           >
-            Building end-to-end full-stack applications with{' '}
-            <strong className="font-semibold text-foreground">React, Node.js, Express, MongoDB</strong>, and deployed on{' '}
-            <strong className="font-semibold text-foreground">AWS EC2</strong>. Focused on clean architecture, resilient auth, and production scalability.
+            Build production-ready web applications with{' '}
+            <strong className="font-semibold text-foreground">React, Node.js, Express and MongoDB</strong>. Focused on backend architecture, authentication, REST APIs, databases and cloud deployment.
           </motion.p>
 
           {/* Key Metrics Quick Row */}
@@ -226,7 +225,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 rounded-xl border border-primary/40 bg-white px-5 py-3.5 text-sm font-semibold text-foreground shadow-sm backdrop-blur-md transition-all hover:border-primary hover:text-primary hover:bg-orange-500/5 active:scale-[0.98]"
             >
               <Download className="h-4 w-4 text-primary" />
-              <span>Resume PDF</span>
+              <span>Resume</span>
             </a>
             <a
               href="#contact"
@@ -328,7 +327,7 @@ export function Hero() {
 
             {/* File Tab Switcher */}
             <div className="flex items-center overflow-x-auto border-b border-slate-700/60 bg-[#0e1626] px-2 pt-2 scrollbar-none">
-              {(['developer', 'server', 'database', 'aws'] as CodeTab[]).map((tab) => {
+              {(['developer', 'server', 'database', 'cloud'] as CodeTab[]).map((tab) => {
                 const isCurrent = activeTab === tab
                 return (
                   <button
@@ -343,7 +342,7 @@ export function Hero() {
                     {tab === 'developer' && <Sparkles className="h-3.5 w-3.5 text-primary" />}
                     {tab === 'server' && <Server className="h-3.5 w-3.5 text-orange-400" />}
                     {tab === 'database' && <Database className="h-3.5 w-3.5 text-amber-400" />}
-                    {tab === 'aws' && <Cpu className="h-3.5 w-3.5 text-yellow-400" />}
+                    {tab === 'cloud' && <Cpu className="h-3.5 w-3.5 text-yellow-400" />}
                     <span>{codeSnippets[tab].filename}</span>
                   </button>
                 )
@@ -421,15 +420,15 @@ export function Hero() {
             <div className="grid grid-cols-3 border-t border-slate-700/60 bg-[#090e1a] py-2.5 px-4 font-mono text-[11px] text-slate-400">
               <div className="flex items-center gap-1.5">
                 <Globe className="h-3.5 w-3.5 text-orange-400" />
-                <span>AWS EC2 Ubuntu</span>
+                <span>Vercel + Render</span>
               </div>
               <div className="flex items-center justify-center gap-1.5">
                 <ShieldCheck className="h-3.5 w-3.5 text-amber-400" />
-                <span>JWT RBAC Secured</span>
+                <span>JWT RBAC Auth</span>
               </div>
               <div className="flex items-center justify-end gap-1.5">
                 <Zap className="h-3.5 w-3.5 text-yellow-400" />
-                <span>MERN Full-Stack</span>
+                <span>React + Node.js</span>
               </div>
             </div>
           </div>

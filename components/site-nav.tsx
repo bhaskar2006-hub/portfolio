@@ -7,9 +7,9 @@ import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
 import { profile } from '@/lib/resume'
 
 const links = [
-  { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
   { href: '#projects', label: 'Projects' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#about', label: 'About' },
   { href: '#experience', label: 'Experience' },
   { href: '#testimonials', label: 'Testimonials' },
   { href: '#contact', label: 'Contact' },
