@@ -71,44 +71,67 @@ export function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.5 }}
-          className="relative overflow-hidden rounded-3xl border border-border/80 bg-white/90 p-6 sm:p-8 shadow-xl backdrop-blur-xl lg:col-span-7 flex flex-col justify-between"
+          className="relative overflow-hidden rounded-3xl border border-border/80 bg-white/95 p-6 sm:p-8 shadow-xl backdrop-blur-xl lg:col-span-7 flex flex-col justify-between"
         >
           {/* Ambient Glow */}
           <div className="pointer-events-none absolute -right-12 -top-12 h-64 w-64 rounded-full bg-orange-500/10 blur-[90px]" />
 
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-semibold text-primary uppercase tracking-widest mb-4">
-              <Sparkles className="h-4 w-4" />
-              <span>Engineering Philosophy</span>
+            <div className="flex items-center justify-between border-b border-border/80 pb-3.5 mb-5">
+              <div className="flex items-center gap-2 text-xs font-mono font-semibold text-primary uppercase tracking-widest">
+                <Sparkles className="h-4 w-4" />
+                <span>Developer Profile &amp; Philosophy</span>
+              </div>
+              <span className="rounded-full bg-orange-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-orange-600">
+                AI &amp; Full-Stack
+              </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-5">
-              <div className="relative shrink-0">
-                <div className="h-20 w-20 sm:h-24 sm:w-24 overflow-hidden rounded-2xl border-2 border-primary/40 shadow-lg shadow-orange-500/10 bg-muted">
+            {/* Profile Portrait & Intro Row */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-5">
+              {/* Profile Image Frame with Glow */}
+              <div className="relative shrink-0 group">
+                <div className="h-32 w-32 sm:h-36 sm:w-36 md:h-40 md:w-40 overflow-hidden rounded-3xl border-2 border-primary/50 shadow-xl shadow-orange-500/20 bg-muted transition-all duration-500 group-hover:scale-[1.03] group-hover:border-primary">
                   <img
                     src={profile.avatar}
                     alt={profile.name}
-                    className="h-full w-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
                   />
                 </div>
-                <div className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full border-2 border-white bg-orange-500" title="Available for work" />
+                {/* Live Status Pill */}
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 sm:left-auto sm:right-1 sm:translate-x-0 inline-flex items-center gap-1.5 rounded-full border border-orange-500/40 bg-white/95 px-3 py-1 text-[10px] font-mono font-bold text-orange-600 shadow-md backdrop-blur-md whitespace-nowrap">
+                  <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
+                  <span>Open for Work</span>
+                </div>
               </div>
 
-              <div>
+              {/* Bio Details */}
+              <div className="flex-1 text-center sm:text-left">
+                <div className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground mb-1">
+                  <span>Full-Stack Engineer</span>
+                  <span>•</span>
+                  <span>B.Tech AI (9.33 CGPA)</span>
+                </div>
                 <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground leading-snug">
-                  I build full-stack applications from database design to deployment.
+                  {profile.name}
                 </h3>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground font-normal">
+                  Full-stack developer building scalable web systems from database architecture and secure REST APIs to responsive React interfaces and cloud deployment.
+                </p>
+
+                {/* Quick Info Tags */}
+                <div className="mt-3 flex flex-wrap justify-center sm:justify-start gap-1.5 font-mono text-[11px]">
+                  <span className="rounded-md border border-border bg-slate-50 px-2 py-0.5 text-slate-700">📍 {profile.location}</span>
+                  <span className="rounded-md border border-primary/30 bg-orange-500/10 px-2 py-0.5 text-primary font-semibold">⚡ MERN Specialist</span>
+                  <span className="rounded-md border border-border bg-slate-50 px-2 py-0.5 text-slate-700">🎓 2026 Batch</span>
+                </div>
               </div>
             </div>
-
-            <p className="text-sm sm:text-base leading-relaxed text-muted-foreground font-normal">
-              I focus on reliable APIs, authentication systems, responsive React interfaces, database design and cloud deployment.
-            </p>
 
             {/* Currently Strengthening Badges */}
             <div className="mt-5 rounded-2xl border border-border/80 bg-slate-50/70 p-4">
               <div className="text-xs font-mono font-bold text-foreground uppercase tracking-wider mb-2.5">
-                Currently Strengthening:
+                Core Focus Areas:
               </div>
               <div className="flex flex-wrap gap-1.5 font-mono text-xs">
                 {strengtheningSkills.map((item) => (

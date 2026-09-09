@@ -1,4 +1,3 @@
-import { WelcomeScreen } from '@/components/welcome-screen'
 import { SiteNav } from '@/components/site-nav'
 import { Hero } from '@/components/hero'
 import { About, Skills } from '@/components/about-skills'
@@ -18,7 +17,6 @@ export default function Page() {
       <ScrollProgress />
       <CursorSpotlight />
       <ParticleBackground />
-      <WelcomeScreen />
       <SiteNav />
       <Hero />
       <Projects />
