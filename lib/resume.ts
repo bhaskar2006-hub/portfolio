@@ -1,6 +1,7 @@
 export const profile = {
   name: 'Bhaskar Reddy J S',
   title: 'Full-Stack Developer',
+  avatar: '/profile.jpg',
   email: 'bhaskarreddy2006js@gmail.com',
   phone: '+91 76718 61347',
   location: 'India',

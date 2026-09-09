@@ -36,7 +36,7 @@ export function Contact() {
         <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-primary/10 blur-[100px]" />
 
         <div className="mb-4 flex items-center gap-3">
-          <span className="font-mono text-sm font-semibold text-primary">05</span>
+          <span className="font-mono text-sm font-semibold text-primary">06</span>
           <span className="h-px w-12 bg-border" />
           <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Get In Touch</span>
         </div>

@@ -34,25 +34,25 @@
 
 :root {
   color-scheme: dark;
-  --background: oklch(0.16 0.008 250);
-  --foreground: oklch(0.96 0.005 250);
-  --card: oklch(0.2 0.01 250);
-  --card-foreground: oklch(0.96 0.005 250);
-  --popover: oklch(0.2 0.01 250);
-  --popover-foreground: oklch(0.96 0.005 250);
-  --primary: oklch(0.78 0.16 165);
-  --primary-foreground: oklch(0.18 0.02 165);
-  --secondary: oklch(0.26 0.012 250);
+  --background: oklch(0.12 0.015 260);
+  --foreground: oklch(0.97 0.005 250);
+  --card: oklch(0.16 0.018 260);
+  --card-foreground: oklch(0.97 0.005 250);
+  --popover: oklch(0.16 0.018 260);
+  --popover-foreground: oklch(0.97 0.005 250);
+  --primary: oklch(0.76 0.17 162);
+  --primary-foreground: oklch(0.12 0.02 162);
+  --secondary: oklch(0.22 0.02 260);
   --secondary-foreground: oklch(0.96 0.005 250);
-  --muted: oklch(0.24 0.01 250);
-  --muted-foreground: oklch(0.68 0.01 250);
-  --accent: oklch(0.78 0.16 165);
-  --accent-foreground: oklch(0.18 0.02 165);
+  --muted: oklch(0.2 0.015 260);
+  --muted-foreground: oklch(0.7 0.015 250);
+  --accent: oklch(0.76 0.17 162);
+  --accent-foreground: oklch(0.12 0.02 162);
   --destructive: oklch(0.62 0.22 25);
   --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.78 0.16 165);
-  --radius: 0.625rem;
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.76 0.17 162);
+  --radius: 0.75rem;
 }
 
 @layer base {
@@ -60,9 +60,28 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground selection:bg-primary/20 selection:text-primary;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.04) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.04) 0px, transparent 50%);
+    background-attachment: fixed;
   }
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Modern custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #090d16;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #334155;
   }
 }
