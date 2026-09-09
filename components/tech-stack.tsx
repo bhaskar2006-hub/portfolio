@@ -201,7 +201,7 @@ export function TechStack() {
     <div className="mb-12 flex flex-col items-center">
       {/* 3D Orbit Container */}
       <div
-        className="relative flex h-[380px] w-full max-w-4xl select-none items-center justify-center overflow-hidden rounded-3xl border border-border/40 bg-gradient-to-b from-card/40 via-card/20 to-transparent backdrop-blur-md cursor-grab active:cursor-grabbing"
+        className="relative flex h-[380px] w-full max-w-4xl select-none items-center justify-center overflow-hidden rounded-3xl border border-border/80 bg-white/60 backdrop-blur-md cursor-grab active:cursor-grabbing shadow-sm"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -211,15 +211,15 @@ export function TechStack() {
         onTouchEnd={handleTouchEnd}
       >
         {/* Core Center Sun / Planet */}
-        <div className="relative flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-tr from-primary/30 via-primary/10 to-transparent p-1 border border-primary/30 shadow-[0_0_60px_rgba(45,212,191,0.25)] animate-pulse">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-card/90 text-primary shadow-lg border border-border">
-            <Sparkles className="h-10 w-10 animate-spin" style={{ animationDuration: '14s' }} />
+        <div className="relative flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-tr from-orange-500/30 via-orange-500/10 to-transparent p-1 border border-orange-500/30 shadow-[0_0_60px_rgba(255,91,0,0.25)] animate-pulse">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-primary shadow-lg border border-orange-200">
+            <Sparkles className="h-10 w-10 animate-spin text-primary" style={{ animationDuration: '14s' }} />
           </div>
         </div>
 
         {/* Orbit Path Visual Ring */}
         <div
-          className="pointer-events-none absolute h-[150px] w-[600px] rounded-[100%] border border-primary/20 shadow-[0_0_40px_rgba(45,212,191,0.15)]"
+          className="pointer-events-none absolute h-[150px] w-[600px] rounded-[100%] border border-orange-500/25 shadow-[0_0_40px_rgba(255,91,0,0.15)]"
           style={{ transform: 'rotateX(65deg)' }}
         />
 
@@ -243,13 +243,13 @@ export function TechStack() {
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             >
               <div
-                className="group relative flex h-16 w-16 items-center justify-center rounded-2xl border bg-card/90 p-3.5 shadow-xl transition-all duration-300"
+                className="group relative flex h-16 w-16 items-center justify-center rounded-2xl border bg-white p-3.5 shadow-md transition-all duration-300"
                 style={{
                   borderColor: isSelected ? tech.color : 'var(--border)',
-                  color: isSelected ? tech.color : 'var(--foreground)',
+                  color: isSelected ? tech.color : '#334155',
                   boxShadow: isSelected
                     ? `0 0 30px ${tech.color}70, 0 12px 24px -6px ${tech.color}50`
-                    : '0 8px 16px -4px rgba(0,0,0,0.4)',
+                    : '0 8px 16px -4px rgba(0,0,0,0.08)',
                 }}
               >
                 <TechIcon tech={tech} className="h-8 w-8" />
@@ -258,9 +258,10 @@ export function TechStack() {
                 <div
                   className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md px-2.5 py-0.5 text-[11px] font-medium tracking-wide shadow-md transition-all duration-200"
                   style={{
-                    backgroundColor: isSelected ? tech.color : 'var(--card)',
-                    color: isSelected ? '#000000' : 'var(--muted-foreground)',
-                    opacity: isSelected ? 1 : 0.85,
+                    backgroundColor: isSelected ? tech.color : '#ffffff',
+                    color: isSelected ? '#ffffff' : '#475569',
+                    border: '1px solid var(--border)',
+                    opacity: isSelected ? 1 : 0.95,
                   }}
                 >
                   {tech.name}
@@ -271,7 +272,7 @@ export function TechStack() {
         })}
 
         {/* Drag Hint */}
-        <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full border border-border/60 bg-card/70 px-4 py-1.5 text-xs text-muted-foreground backdrop-blur-md shadow-sm">
+        <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full border border-border bg-white/90 px-4 py-1.5 text-xs text-muted-foreground backdrop-blur-md shadow-sm">
           <RefreshCw className="h-3.5 w-3.5 animate-spin text-primary" style={{ animationDuration: '8s' }} />
           <span>Drag horizontally to spin 3D tech orbit</span>
         </div>
@@ -287,12 +288,12 @@ export function TechStack() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center justify-between rounded-xl border border-border/80 bg-card p-3 shadow-lg"
+              className="flex items-center justify-between rounded-xl border border-border bg-white p-3 shadow-md"
               style={{ borderLeftColor: hoveredTech.color, borderLeftWidth: '4px' }}
             >
               <div className="flex items-center gap-3">
                 <div
-                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-background p-2"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-50 p-2 shadow-inner"
                   style={{ color: hoveredTech.color }}
                 >
                   <TechIcon tech={hoveredTech} className="h-6 w-6" />
@@ -318,7 +319,7 @@ export function TechStack() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex items-center justify-center rounded-xl border border-dashed border-border/50 p-4 text-xs text-muted-foreground"
+              className="flex items-center justify-center rounded-xl border border-dashed border-border p-4 text-xs text-muted-foreground bg-white/50"
             >
               Hover or tap any orbiting skill icon to inspect details
             </motion.div>
