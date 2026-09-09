@@ -16,13 +16,13 @@ import {
   Compass
 } from 'lucide-react'
 
-export type TechCategory = 'All' | 'Frontend' | 'Backend' | 'Database' | 'Cloud & DevOps' | 'Languages'
+export type TechCategory = 'All' | 'Frontend' | 'Backend' | 'Database' | 'Cloud & DevOps' | 'Languages & AI'
 
 export interface Tech {
   name: string
   icon: string
   color: string
-  category: 'Frontend' | 'Backend' | 'Database' | 'Cloud & DevOps' | 'Languages'
+  category: 'Frontend' | 'Backend' | 'Database' | 'Cloud & DevOps' | 'Languages & AI'
   proficiency: number // Percentage 0 - 100
   level: 'Expert' | 'Advanced' | 'Proficient'
   desc: string
@@ -41,6 +41,16 @@ export const techs: Tech[] = [
     highlight: 'Built DevFlow & GoCart frontend Single Page Applications',
   },
   {
+    name: 'TypeScript',
+    icon: '/tech/typescript.svg',
+    color: '#3178C6',
+    category: 'Frontend',
+    proficiency: 92,
+    level: 'Advanced',
+    desc: 'Static Typing, Interfaces, Generics & Strict Null Safety',
+    highlight: 'Engineered type-safe dashboard pipelines in DevFlow SaaS',
+  },
+  {
     name: 'Node.js',
     icon: '/tech/nodedotjs.svg',
     color: '#22C55E',
@@ -54,7 +64,7 @@ export const techs: Tech[] = [
     name: 'JavaScript',
     icon: '/tech/javascript.svg',
     color: '#EAB308',
-    category: 'Languages',
+    category: 'Languages & AI',
     proficiency: 95,
     level: 'Expert',
     desc: 'ES6+, Closures, Async/Await, Prototypes & High Performance V8',
@@ -71,6 +81,16 @@ export const techs: Tech[] = [
     highlight: 'Multi-tenant organization data modeling for SaaS platforms',
   },
   {
+    name: 'Docker',
+    icon: '/tech/docker.svg',
+    color: '#2496ED',
+    category: 'Cloud & DevOps',
+    proficiency: 88,
+    level: 'Advanced',
+    desc: 'Containerization, Dockerfiles, Compose & Microservices Isolation',
+    highlight: 'Containerized Node.js backend services deployed on Render',
+  },
+  {
     name: 'Express.js',
     icon: '/tech/express.svg',
     color: '#0284C7',
@@ -84,11 +104,31 @@ export const techs: Tech[] = [
     name: 'Python',
     icon: '/tech/python.svg',
     color: '#3B82F6',
-    category: 'Languages',
-    proficiency: 90,
+    category: 'Languages & AI',
+    proficiency: 92,
     level: 'Advanced',
     desc: 'Agentic AI Frameworks, Pandas, NumPy, Scripting & Data Engineering',
     highlight: 'IBM Data Science, AI & Python Specialization Certified',
+  },
+  {
+    name: 'PostgreSQL',
+    icon: '/tech/postgresql.svg',
+    color: '#336791',
+    category: 'Database',
+    proficiency: 90,
+    level: 'Advanced',
+    desc: 'Relational Schema Design, Complex Joins, Indexing & SQL Queries',
+    highlight: 'HackerRank SQL (Advanced) Verified Skill Certificate',
+  },
+  {
+    name: 'Tailwind CSS',
+    icon: '/tech/tailwindcss.svg',
+    color: '#38BDF8',
+    category: 'Frontend',
+    proficiency: 95,
+    level: 'Expert',
+    desc: 'Utility-First Styling, Responsive Layouts, Glassmorphism & Custom Theming',
+    highlight: 'Crafted sleek, high-conversion interfaces with zero CSS bloat',
   },
   {
     name: 'Flask',
@@ -134,7 +174,7 @@ export const techs: Tech[] = [
     name: 'C++',
     icon: '/tech/cplusplus.svg',
     color: '#2563EB',
-    category: 'Languages',
+    category: 'Languages & AI',
     proficiency: 88,
     level: 'Advanced',
     desc: 'Data Structures, Algorithms, Memory Allocation & OOP Concepts',
@@ -172,12 +212,12 @@ export function TechStack() {
   const [activeFrontIndex, setActiveFrontIndex] = useState<number>(0)
   
   const requestRef = useRef<number | null>(null)
-  const autoRotateSpeed = 0.0035
+  const autoRotateSpeed = 0.003
 
-  const radiusX = 320 // Horizontal radius
-  const radiusY = 82 // Vertical tilt radius
+  const radiusX = 340 // Horizontal radius
+  const radiusY = 86 // Vertical tilt radius
 
-  const categories: TechCategory[] = ['All', 'Frontend', 'Backend', 'Database', 'Cloud & DevOps', 'Languages']
+  const categories: TechCategory[] = ['All', 'Frontend', 'Backend', 'Database', 'Cloud & DevOps', 'Languages & AI']
 
   // Handle smooth auto-rotation and easing to target angle
   const updatePhysics = useCallback(() => {
@@ -220,7 +260,7 @@ export function TechStack() {
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return
     const deltaX = e.clientX - dragStartX
-    setAngle((prev) => prev + deltaX * 0.006)
+    setAngle((prev) => prev + deltaX * 0.005)
     setDragStartX(e.clientX)
   }
 
@@ -238,7 +278,7 @@ export function TechStack() {
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging) return
     const deltaX = e.touches[0].clientX - dragStartX
-    setAngle((prev) => prev + deltaX * 0.008)
+    setAngle((prev) => prev + deltaX * 0.007)
     setDragStartX(e.touches[0].clientX)
   }
 
@@ -297,9 +337,9 @@ export function TechStack() {
         frontIdx = i
       }
 
-      // Parallax depth scaling: Front items are larger (1.2x), back items fade (0.6x)
-      const scale = Number((0.82 + z * 0.38).toFixed(3))
-      const opacity = Number((0.32 + (z + 1) * 0.34).toFixed(3)) // 0.32 to 1.0
+      // Parallax depth scaling: Front items are larger (1.2x), back items fade (0.58x)
+      const scale = Number((0.80 + z * 0.36).toFixed(3))
+      const opacity = Number((0.30 + (z + 1) * 0.35).toFixed(3)) // 0.30 to 1.0
       const zIndex = Math.round((z + 1) * 100)
 
       const isCategoryMatch = activeCategory === 'All' || tech.category === activeCategory
@@ -311,7 +351,7 @@ export function TechStack() {
         y,
         z,
         scale,
-        opacity: isCategoryMatch ? opacity : opacity * 0.4,
+        opacity: isCategoryMatch ? opacity : opacity * 0.35,
         zIndex,
         isCategoryMatch,
       }
@@ -373,7 +413,7 @@ export function TechStack() {
 
       {/* 3D Orbit Stage Container */}
       <div
-        className="relative flex h-[420px] w-full max-w-5xl select-none items-center justify-center overflow-hidden rounded-3xl border border-orange-500/25 bg-gradient-to-b from-white/95 via-orange-500/[0.02] to-white/90 shadow-xl backdrop-blur-xl cursor-grab active:cursor-grabbing dark:from-slate-900/90 dark:to-slate-950/80"
+        className="relative flex h-[430px] w-full max-w-5xl select-none items-center justify-center overflow-hidden rounded-3xl border border-orange-500/25 bg-gradient-to-b from-white/95 via-orange-500/[0.02] to-white/90 shadow-xl backdrop-blur-xl cursor-grab active:cursor-grabbing dark:from-slate-900/90 dark:to-slate-950/80"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -382,7 +422,7 @@ export function TechStack() {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Subtle Sci-Fi Perspective Ground Grid Lines */}
+        {/* Perspective Ground Grid Lines */}
         <div 
           className="pointer-events-none absolute inset-x-0 bottom-0 h-48 opacity-[0.18]"
           style={{
@@ -409,16 +449,14 @@ export function TechStack() {
           <div className="pointer-events-none absolute -inset-4 rounded-full border border-orange-500/20 animate-ping opacity-30" />
         </div>
 
-        {/* ─── CONNECTING ORBITAL RINGS & COMET PATHS ─── */}
-        {/* Primary Ellipse Orbit Ring */}
+        {/* ─── CONNECTING ORBITAL RINGS ─── */}
         <div
-          className="pointer-events-none absolute h-[164px] w-[640px] rounded-[100%] border border-dashed border-orange-500/35 shadow-[0_0_40px_rgba(255,91,0,0.18)]"
+          className="pointer-events-none absolute h-[172px] w-[680px] rounded-[100%] border border-dashed border-orange-500/35 shadow-[0_0_40px_rgba(255,91,0,0.18)]"
           style={{ transform: 'rotateX(65deg)' }}
         />
 
-        {/* Secondary Concentric Inner Guide Ring */}
         <div
-          className="pointer-events-none absolute h-[110px] w-[460px] rounded-[100%] border border-orange-400/20"
+          className="pointer-events-none absolute h-[115px] w-[490px] rounded-[100%] border border-orange-400/20"
           style={{ transform: 'rotateX(65deg)' }}
         />
 
@@ -517,7 +555,6 @@ export function TechStack() {
           )
         })}
 
-        {/* ─── STAGE CONTROLS & HINT OVERLAYS ─── */}
         {/* Previous / Next Quick Step Buttons */}
         <div className="absolute left-4 top-1/2 -translate-y-1/2 z-30">
           <button

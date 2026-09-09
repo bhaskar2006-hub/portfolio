@@ -16,28 +16,28 @@ export const profile = {
 
 export const skillGroups = [
   {
-    label: 'Frontend',
-    items: ['React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'HTML', 'CSS'],
+    label: 'Frontend Development',
+    items: ['React', 'TypeScript', 'JavaScript (ES6+)', 'Tailwind CSS', 'HTML5', 'CSS3', 'Next.js', 'State Management'],
   },
   {
-    label: 'Backend',
-    items: ['Node.js', 'Express.js', 'REST APIs', 'JWT', 'Authentication'],
+    label: 'Backend & APIs',
+    items: ['Node.js', 'Express.js', 'REST APIs', 'JWT Authentication', 'OAuth 2.0', 'Flask', 'Middleware Pipelines', 'Role-Based Access Control (RBAC)'],
   },
   {
-    label: 'Database',
-    items: ['MongoDB', 'PostgreSQL', 'Prisma', 'Mongoose'],
+    label: 'Database Systems',
+    items: ['MongoDB', 'MongoDB Atlas', 'Mongoose ODM', 'PostgreSQL', 'SQL (Advanced)', 'Aggregation Pipelines', 'Indexing & Schemas'],
   },
   {
-    label: 'DevOps / Cloud',
-    items: ['Docker', 'AWS', 'Vercel', 'Git', 'GitHub'],
+    label: 'Cloud & DevOps',
+    items: ['AWS EC2', 'AWS S3', 'Docker Containers', 'Render', 'Vercel', 'Nginx Reverse Proxy', 'PM2 Daemon', 'Git', 'GitHub CI/CD'],
   },
   {
-    label: 'Programming',
-    items: ['Java', 'C++', 'Python'],
+    label: 'AI & Data Engineering',
+    items: ['Agentic AI', 'Autonomous LLMs', 'Prompt Engineering', 'Python', 'Pandas', 'NumPy', 'IBM AI Microservices', 'Vector Search'],
   },
   {
-    label: 'Foundations',
-    items: ['DSA', 'OOP', 'DBMS', 'Computer Networks'],
+    label: 'CS Fundamentals & Architecture',
+    items: ['Data Structures & Algorithms', 'Object-Oriented Design (OOP)', 'Database Management (DBMS)', 'C++', 'System Architecture', 'Operating Systems'],
   },
 ]
 
