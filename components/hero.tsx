@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import {
   ArrowDown,
-  ArrowUpRight,
+  Award,
   CheckCircle2,
   Code2,
   Cpu,
@@ -12,104 +12,20 @@ import {
   Download,
   Flame,
   Globe,
+  GraduationCap,
   Layers,
   Mail,
-  Play,
   Server,
   ShieldCheck,
   Sparkles,
   Terminal,
   Zap,
 } from 'lucide-react'
-import { GithubIcon, LinkedinIcon, LeetcodeIcon } from '@/components/brand-icons'
+import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
 import { AnimatedCounter } from '@/components/animated-counter'
 import { profile } from '@/lib/resume'
 
-type CodeTab = 'developer' | 'server' | 'database' | 'cloud'
-
-const codeSnippets: Record<CodeTab, { filename: string; language: string; lines: { text: string; indent: number; color?: string }[] }> = {
-  developer: {
-    filename: 'developer.ts',
-    language: 'TypeScript',
-    lines: [
-      { text: '// Full-Stack Engineer Profile', indent: 0, color: 'text-slate-400' },
-      { text: 'const engineer = {', indent: 0, color: 'text-orange-400 font-semibold' },
-      { text: "role: 'Full-Stack Developer',", indent: 1, color: 'text-slate-100' },
-      { text: "focus: 'Web Systems & Cloud',", indent: 1, color: 'text-slate-100' },
-      { text: "frontend: ['React', 'TypeScript'],", indent: 1, color: 'text-orange-300' },
-      { text: "backend: ['Node.js', 'Express'],", indent: 1, color: 'text-amber-300' },
-      { text: "database: ['MongoDB'],", indent: 1, color: 'text-yellow-300' },
-      { text: "auth: ['JWT', 'Google OAuth'],", indent: 1, color: 'text-orange-200' },
-      { text: "deployment: ['Vercel', 'Render'],", indent: 1, color: 'text-emerald-400' },
-      { text: '};', indent: 0, color: 'text-orange-400 font-semibold' },
-      { text: '', indent: 0 },
-      { text: 'export default engineer;', indent: 0, color: 'text-orange-400 font-bold' },
-    ],
-  },
-  server: {
-    filename: 'server.ts',
-    language: 'Express.js',
-    lines: [
-      { text: "import express from 'express';", indent: 0, color: 'text-orange-400 font-semibold' },
-      { text: "import { verifyToken, requireRole } from './auth';", indent: 0, color: 'text-orange-400 font-semibold' },
-      { text: '', indent: 0 },
-      { text: 'const app = express();', indent: 0, color: 'text-slate-100' },
-      { text: "app.use('/api/v1/auth', authRouter);", indent: 0, color: 'text-orange-300' },
-      { text: "app.use('/api/v1/projects', verifyToken, requireRole('MEMBER'), projectRouter);", indent: 0, color: 'text-amber-300' },
-      { text: '', indent: 0 },
-      { text: 'app.listen(5000, () => {', indent: 0, color: 'text-orange-400' },
-      { text: "  console.log('⚡ REST API running on :5000');", indent: 1, color: 'text-slate-400' },
-      { text: '});', indent: 0, color: 'text-orange-400' },
-    ],
-  },
-  database: {
-    filename: 'schema.ts',
-    language: 'MongoDB',
-    lines: [
-      { text: "import { Schema, model } from 'mongoose';", indent: 0, color: 'text-orange-400 font-semibold' },
-      { text: '', indent: 0 },
-      { text: 'const IssueSchema = new Schema({', indent: 0, color: 'text-orange-400 font-semibold' },
-      { text: '  title: { type: String, required: true },', indent: 1, color: 'text-slate-100' },
-      { text: "  status: { type: String, enum: ['TODO', 'IN_PROGRESS', 'DONE'] },", indent: 1, color: 'text-orange-300' },
-      { text: "  priority: { type: String, enum: ['LOW', 'MEDIUM', 'HIGH', 'URGENT'] },", indent: 1, color: 'text-amber-300' },
-      { text: '  assignee: { type: Schema.Types.ObjectId, ref: "User" }', indent: 1, color: 'text-yellow-300' },
-      { text: '}, { timestamps: true });', indent: 0, color: 'text-orange-400' },
-    ],
-  },
-  cloud: {
-    filename: 'deploy.sh',
-    language: 'Docker / Cloud',
-    lines: [
-      { text: '#!/bin/bash', indent: 0, color: 'text-slate-400' },
-      { text: 'echo "🚀 Building container image..."', indent: 0, color: 'text-amber-400' },
-      { text: 'docker build -t devflow-backend:latest .', indent: 0, color: 'text-slate-100' },
-      { text: 'npm run test && npm run build', indent: 0, color: 'text-orange-300' },
-      { text: 'echo "✅ Deployed to Vercel (FE) & Render (BE)"', indent: 0, color: 'text-emerald-400 font-bold' },
-    ],
-  },
-}
-
-const floatingBadges = [
-  { label: 'React + TS', pos: '-top-3 left-4', color: 'border-orange-500/40 text-orange-600 bg-white/90 shadow-lg' },
-  { label: 'Node & Express', pos: 'top-1/4 -right-4', color: 'border-amber-500/40 text-amber-700 bg-white/90 shadow-lg' },
-  { label: 'MongoDB Atlas', pos: 'bottom-24 -left-4', color: 'border-orange-500/40 text-orange-600 bg-white/90 shadow-lg' },
-  { label: 'Vercel + Render', pos: '-bottom-3 right-6', color: 'border-amber-600/40 text-amber-800 bg-white/90 shadow-lg' },
-]
-
 export function Hero() {
-  const [activeTab, setActiveTab] = useState<CodeTab>('developer')
-  const [isRunning, setIsRunning] = useState(false)
-  const [runSuccess, setRunSuccess] = useState(false)
-
-  const handleRunCode = () => {
-    setIsRunning(true)
-    setTimeout(() => {
-      setIsRunning(false)
-      setRunSuccess(true)
-      setTimeout(() => setRunSuccess(false), 3000)
-    }, 800)
-  }
-
   return (
     <section id="top" className="relative overflow-hidden px-6 pt-28 pb-20 md:pt-36 lg:pb-28">
       {/* Dynamic Warm Ambient Background */}
@@ -130,7 +46,7 @@ export function Hero() {
       </div>
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-12">
-        {/* Left Column: Bio, Value Proposition, Action CTAs */}
+        {/* Left Column: Bio, Value Proposition, Action CTAs (6 cols) */}
         <div className="lg:col-span-6 flex flex-col justify-center">
           {/* Status Badge */}
           <motion.div
@@ -204,7 +120,7 @@ export function Hero() {
             </div>
             <div>
               <div className="font-mono text-2xl font-black text-foreground">
-                <AnimatedCounter value={7} suffix="+" />
+                <AnimatedCounter value={17} suffix="+" />
               </div>
               <div className="font-mono text-[11px] text-muted-foreground uppercase tracking-wider">Certifications</div>
             </div>
@@ -283,165 +199,151 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column: Interactive Developer Cockpit / IDE Showcase */}
+        {/* Right Column: Creative Developer Visual Portrait Showcase (6 cols) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          initial={{ opacity: 0, scale: 0.92, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative lg:col-span-6 mx-auto w-full max-w-lg lg:max-w-none"
+          transition={{ duration: 0.65, delay: 0.2 }}
+          className="relative lg:col-span-6 flex items-center justify-center"
         >
-          {/* Ambient Glow */}
-          <div className="pointer-events-none absolute -inset-3 rounded-3xl bg-gradient-to-r from-orange-500/20 via-amber-500/20 to-yellow-500/20 opacity-70 blur-2xl transition-opacity" />
+          {/* Outer Multi-Layer Glow Aura */}
+          <div className="pointer-events-none absolute h-[460px] w-[460px] rounded-full bg-gradient-to-tr from-orange-500/25 via-amber-500/20 to-yellow-500/20 blur-[90px] animate-pulse" />
 
-          {/* Floating Badges */}
-          {floatingBadges.map((badge, idx) => (
-            <motion.span
-              key={badge.label}
-              animate={{ y: [0, -6, 0] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: idx * 0.4,
-              }}
-              className={`absolute z-30 hidden sm:inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[11px] font-semibold backdrop-blur-md ${badge.pos} ${badge.color}`}
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
-              {badge.label}
-            </motion.span>
-          ))}
+          {/* Rotating Decorative Outer Ring */}
+          <div className="pointer-events-none absolute h-[440px] w-[440px] sm:h-[480px] sm:w-[480px] rounded-full border border-dashed border-orange-500/30 animate-[spin_30s_linear_infinite]" />
 
-          {/* IDE Window Frame */}
-          <div className="relative z-10 overflow-hidden rounded-2xl border border-orange-500/20 bg-[#0f172a] shadow-[0_20px_50px_rgba(255,91,0,0.12)] backdrop-blur-2xl">
-            {/* Window Title Bar */}
-            <div className="flex items-center justify-between border-b border-slate-700/60 bg-[#0b1120] px-4 py-3">
-              <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-red-500/90 inline-block shadow-sm" />
-                <span className="h-3 w-3 rounded-full bg-amber-500/90 inline-block shadow-sm" />
-                <span className="h-3 w-3 rounded-full bg-green-500/90 inline-block shadow-sm" />
-                <span className="ml-2 font-mono text-xs text-slate-300 flex items-center gap-1.5">
-                  <Terminal className="h-3.5 w-3.5 text-primary" />
-                  <span>bhaskar-reddy-workspace</span>
+          {/* Secondary Reverse Orbit Ring */}
+          <div className="pointer-events-none absolute h-[380px] w-[380px] sm:h-[420px] sm:w-[420px] rounded-full border border-orange-400/20 animate-[spin_20s_linear_infinite_reverse]" />
+
+          {/* Central Portrait Card */}
+          <div className="relative z-10 w-full max-w-[340px] sm:max-w-[390px]">
+            {/* Framed Glowing Card Container */}
+            <div className="group relative overflow-hidden rounded-3xl border-2 border-orange-500/40 bg-gradient-to-b from-white via-white/95 to-orange-500/[0.06] p-3 shadow-2xl shadow-orange-500/15 backdrop-blur-xl transition-all duration-500 hover:border-primary hover:shadow-orange-500/25 hover:-translate-y-1 dark:from-slate-900 dark:via-slate-900/90 dark:to-orange-950/30">
+              
+              {/* Top Bar / Mac OS Header */}
+              <div className="flex items-center justify-between px-3 py-2 mb-2 border-b border-border/70">
+                <div className="flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                </div>
+                <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold text-primary">
+                  <Terminal className="h-3 w-3" />
+                  <span>bhaskar.dev</span>
+                </div>
+                <span className="rounded-full bg-orange-500/15 px-2 py-0.5 font-mono text-[9px] font-bold text-primary">
+                  AI / MERN
                 </span>
               </div>
 
-              {/* Server Live Pill */}
-              <div className="flex items-center gap-1.5 rounded-full border border-orange-500/40 bg-orange-950/60 px-2.5 py-0.5 font-mono text-[10px] text-orange-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-orange-400 animate-pulse" />
-                <span>ONLINE · 18ms</span>
+              {/* Portrait Image Canvas */}
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-950 border border-orange-500/20 shadow-inner group">
+                <Image
+                  src="/profile.jpg"
+                  alt={profile.name}
+                  fill
+                  className="object-cover object-top filter contrast-[1.03] brightness-[1.02] transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 320px, 400px"
+                  priority
+                />
+
+                {/* Creative Ambient Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+                {/* Bottom Overlay Info */}
+                <div className="absolute bottom-3 left-3 right-3 text-white">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-bold text-base text-white drop-shadow-md">
+                        {profile.name}
+                      </h3>
+                      <p className="font-mono text-[11px] text-orange-300 drop-shadow-sm flex items-center gap-1">
+                        <Sparkles className="h-3 w-3" />
+                        Full-Stack Engineer &bull; AI
+                      </p>
+                    </div>
+                    <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-orange-500/90 text-white shadow-lg backdrop-blur-md">
+                      <Zap className="h-4 w-4" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Quick Specs Bar */}
+              <div className="mt-3 flex items-center justify-between rounded-xl bg-orange-500/10 border border-orange-500/20 px-3 py-2 font-mono text-[11px]">
+                <div className="flex items-center gap-1.5 text-foreground font-semibold">
+                  <Cpu className="h-3.5 w-3.5 text-primary" />
+                  <span>MERN + Cloud</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-primary font-bold">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                  <span>Oracle &bull; Google Certified</span>
+                </div>
               </div>
             </div>
 
-            {/* File Tab Switcher */}
-            <div className="flex items-center overflow-x-auto border-b border-slate-700/60 bg-[#0e1626] px-2 pt-2 scrollbar-none">
-              {(['developer', 'server', 'database', 'cloud'] as CodeTab[]).map((tab) => {
-                const isCurrent = activeTab === tab
-                return (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`flex items-center gap-2 border-t-2 px-3.5 py-2 font-mono text-xs font-medium transition-all ${
-                      isCurrent
-                        ? 'border-primary bg-[#0f172a] text-white font-semibold shadow-inner'
-                        : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-[#131e33]'
-                    }`}
-                  >
-                    {tab === 'developer' && <Sparkles className="h-3.5 w-3.5 text-primary" />}
-                    {tab === 'server' && <Server className="h-3.5 w-3.5 text-orange-400" />}
-                    {tab === 'database' && <Database className="h-3.5 w-3.5 text-amber-400" />}
-                    {tab === 'cloud' && <Cpu className="h-3.5 w-3.5 text-yellow-400" />}
-                    <span>{codeSnippets[tab].filename}</span>
-                  </button>
-                )
-              })}
-            </div>
+            {/* ─── FLOATING CREATIVE CARDS AROUND PORTRAIT ─── */}
 
-            {/* Code Body */}
-            <div className="relative p-4 font-mono text-xs leading-relaxed min-h-[280px] select-text bg-[#0f172a]">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <table className="w-full border-collapse">
-                    <tbody>
-                      {codeSnippets[activeTab].lines.map((line, i) => (
-                        <tr key={i} className="hover:bg-white/[0.04]">
-                          <td className="w-8 select-none pr-4 text-right text-[11px] text-slate-500">
-                            {i + 1}
-                          </td>
-                          <td className="py-0.5 whitespace-pre">
-                            <span style={{ paddingLeft: `${line.indent * 1}rem` }} className={line.color || 'text-slate-300'}>
-                              {line.text}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </motion.div>
-              </AnimatePresence>
-            </div>
+            {/* Top-Right Floating Pill: Agentic AI */}
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -top-5 -right-6 z-20 flex items-center gap-2 rounded-2xl border border-orange-500/40 bg-white/95 px-3.5 py-2 shadow-xl shadow-orange-500/15 backdrop-blur-md dark:bg-slate-900"
+            >
+              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-orange-500/15 text-primary">
+                <Sparkles className="h-4 w-4" />
+              </span>
+              <div>
+                <p className="font-mono text-[10px] text-muted-foreground uppercase font-bold">Certified</p>
+                <p className="font-bold text-xs text-foreground">Agentic AI &amp; LLMs</p>
+              </div>
+            </motion.div>
 
-            {/* Interactive Terminal Execution Bar */}
-            <div className="flex items-center justify-between border-t border-slate-700/70 bg-[#0b1120] px-4 py-3">
-              <div className="flex items-center gap-2 font-mono text-xs text-slate-400">
-                <span className="text-orange-400">node</span>
-                <span>{codeSnippets[activeTab].filename}</span>
-                {runSuccess && (
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex items-center gap-1 text-emerald-400 font-semibold"
-                  >
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                    <span>Compiled 100% OK</span>
-                  </motion.span>
-                )}
+            {/* Bottom-Left Floating Pill: Full-Stack Stack */}
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+              className="absolute -bottom-6 -left-6 z-20 flex items-center gap-2.5 rounded-2xl border border-amber-500/40 bg-white/95 px-3.5 py-2 shadow-xl shadow-amber-500/15 backdrop-blur-md dark:bg-slate-900"
+            >
+              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-amber-500/15 text-amber-600">
+                <Layers className="h-4 w-4" />
+              </span>
+              <div>
+                <p className="font-mono text-[10px] text-muted-foreground uppercase font-bold">Core Stack</p>
+                <p className="font-bold text-xs text-foreground">React · Node · Express · Mongo</p>
               </div>
+            </motion.div>
 
-              <button
-                type="button"
-                onClick={handleRunCode}
-                disabled={isRunning}
-                className="flex items-center gap-1.5 rounded-lg border border-primary/50 bg-primary/20 px-3 py-1.5 font-mono text-xs font-semibold text-orange-400 transition-all hover:bg-primary hover:text-white active:scale-95 disabled:opacity-50 cursor-pointer"
-              >
-                {isRunning ? (
-                  <>
-                    <Sparkles className="h-3.5 w-3.5 animate-spin text-orange-400" />
-                    <span>Executing...</span>
-                  </>
-                ) : (
-                  <>
-                    <Play className="h-3.5 w-3.5 fill-current" />
-                    <span>Run File</span>
-                  </>
-                )}
-              </button>
-            </div>
+            {/* Top-Left Floating Badge: Live Status */}
+            <motion.div
+              animate={{ x: [0, -4, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              className="absolute top-16 -left-8 z-20 hidden sm:flex items-center gap-2 rounded-full border border-emerald-500/40 bg-white/95 px-3 py-1 shadow-lg backdrop-blur-md dark:bg-slate-900"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span className="font-mono text-[10px] font-bold text-slate-700 dark:text-slate-200">
+                Open for Hire
+              </span>
+            </motion.div>
 
-            {/* Architecture Metrics Footer Bar */}
-            <div className="grid grid-cols-3 border-t border-slate-700/60 bg-[#090e1a] py-2.5 px-4 font-mono text-[11px] text-slate-400">
-              <div className="flex items-center gap-1.5">
-                <Globe className="h-3.5 w-3.5 text-orange-400" />
-                <span>Vercel + Render</span>
-              </div>
-              <div className="flex items-center justify-center gap-1.5">
-                <ShieldCheck className="h-3.5 w-3.5 text-amber-400" />
-                <span>JWT RBAC Auth</span>
-              </div>
-              <div className="flex items-center justify-end gap-1.5">
-                <Zap className="h-3.5 w-3.5 text-yellow-400" />
-                <span>React + Node.js</span>
-              </div>
-            </div>
+            {/* Bottom-Right Mini Badge: Academic Score */}
+            <motion.div
+              animate={{ x: [0, 4, 0] }}
+              transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
+              className="absolute bottom-20 -right-7 z-20 hidden sm:flex items-center gap-1.5 rounded-full border border-orange-500/40 bg-white/95 px-3 py-1 shadow-lg backdrop-blur-md dark:bg-slate-900"
+            >
+              <GraduationCap className="h-3.5 w-3.5 text-primary" />
+              <span className="font-mono text-[10px] font-bold text-primary">
+                9.33 CGPA
+              </span>
+            </motion.div>
+
           </div>
         </motion.div>
       </div>
     </section>
   )
 }
-
