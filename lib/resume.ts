@@ -52,11 +52,20 @@ export const skillGroups = [
   },
 ]
 
+// DevFlow URLs
+export const DEVFLOW_LIVE_URL = 'https://devflow123.vercel.app/'
+export const DEVFLOW_GITHUB_URL = 'https://github.com/bhaskar2006-hub/DevFlow'
+
 export const projects = [
   {
     id: 'gocart',
     name: 'GoCart',
     tagline: 'MERN E-Commerce Application',
+    category: 'E-Commerce Platform',
+    shortLabel: 'MERN Application',
+    statusBadge: 'AWS EC2 LIVE',
+    liveLabel: 'Launch App',
+    repoLabel: 'Code',
     description:
       'Built an end-to-end e-commerce application with product browsing, category navigation, cart management, and user-session workflows, backed by RESTful services and deployed on AWS EC2.',
     highlights: [
@@ -110,6 +119,11 @@ export const projects = [
     id: 'bytesecure',
     name: 'ByteSecure',
     tagline: 'Role-Based Authentication & Authorization System',
+    category: 'Security & Access Control',
+    shortLabel: 'RBAC Security',
+    statusBadge: 'RBAC SECURED',
+    liveLabel: 'Live Demo',
+    repoLabel: 'Code',
     description:
       'Engineered a full-stack authentication system with role-based access control (RBAC), bcrypt password hashing, and JWT token authentication in a Node.js and Express.js backend.',
     highlights: [
@@ -141,6 +155,147 @@ export const projects = [
         {
           problem: 'Preventing Unauthorized Role Escalation via manipulated request bodies.',
           solution: 'Enforced strict server-side schema verification and excluded role fields from public user registration payloads.',
+        },
+      ],
+    },
+  },
+  {
+    id: 'devflow',
+    name: 'DevFlow',
+    tagline: 'Developer Collaboration Platform',
+    category: 'Developer Collaboration Platform',
+    shortLabel: 'Full-Stack SaaS',
+    statusBadge: 'FULL-STACK SAAS',
+    liveLabel: 'Live Demo',
+    repoLabel: 'GitHub',
+    description:
+      'Built a full-stack collaboration platform for development teams to manage organizations, projects, issues, assignments, comments, and activity tracking.',
+    fullDescription:
+      'DevFlow is a full-stack developer collaboration platform that helps software teams organize projects, manage issues, assign work, collaborate through comments, and track development activity from a centralized workspace.',
+    highlights: [
+      'Implemented JWT authentication with bcrypt password hashing and Google OAuth.',
+      'Designed MongoDB schemas for organizations, members, projects, issues, comments, and activity logs.',
+      'Built role-based authorization with OWNER, ADMIN, MEMBER, and VIEWER permissions.',
+      'Developed REST APIs using Node.js, Express.js, and Mongoose.',
+      'Built a React + TypeScript dashboard with project and issue management.',
+      'Added issue status, priority, assignment, search, filtering, comments, and activity tracking.',
+      'Containerized the backend with Docker and deployed the application using Vercel, Render, and MongoDB Atlas.',
+    ],
+    stack: [
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'Mongoose',
+      'JWT',
+      'Google OAuth',
+      'Docker',
+      'REST API',
+    ],
+    liveUrl: DEVFLOW_LIVE_URL,
+    repoUrl: DEVFLOW_GITHUB_URL,
+    caseStudy: {
+      overview:
+        'DevFlow is a full-stack developer collaboration platform that helps software teams organize projects, manage issues, assign work, collaborate through comments, and track development activity from a centralized workspace.',
+      problem:
+        'Development teams often manage tasks, discussions, assignments, and project progress across disconnected tools. This makes it difficult to understand ownership, status, priorities, and project activity from one place.',
+      solution:
+        'DevFlow provides a centralized workspace where teams can create projects, manage issues, assign developers, communicate through comments, and track activity.',
+      architecture: [
+        'Client Tier: React + TypeScript Single Page Application with Tailwind CSS and Axios for type-safe API communication.',
+        'API Tier: Express.js REST API with modular controllers, centralized error handling, and request validation middleware.',
+        'Security & Auth Middleware: JWT token verification, bcrypt password hashing, Google OAuth 2.0 authentication, and multi-tier RBAC authorization guards.',
+        'Service Layer: Decoupled domain services for organization scoping, issue state transitions, and comment threading.',
+        'Data Tier: Mongoose ODM connecting to MongoDB Atlas cloud database with relational document references.',
+        'Containerization & Cloud: Dockerized backend deployed on Render, frontend deployed on Vercel, and database hosted on MongoDB Atlas.',
+      ],
+      architectureFlow: [
+        'React + TypeScript',
+        'Axios',
+        'Express REST API',
+        'Authentication / Authorization Middleware',
+        'Controllers / Services',
+        'Mongoose',
+        'MongoDB Atlas',
+      ],
+      authFlow: [
+        'Email / Password or Google OAuth',
+        'Backend verification',
+        'Find/Create User',
+        'JWT',
+        'Protected API requests',
+      ],
+      databaseModelFlow: [
+        'User',
+        'OrganizationMember',
+        'Organization',
+        'Project',
+        'Issue',
+        'Comment',
+      ],
+      databaseSchema: [
+        'User Collection: {_id, name, email, passwordHash, googleId, avatar, createdAt}',
+        'Organization Collection: {_id, name, slug, ownerId, createdAt}',
+        'OrganizationMember Collection: {_id, organizationId, userId, role: ("OWNER" | "ADMIN" | "MEMBER" | "VIEWER"), joinedAt}',
+        'Project Collection: {_id, organizationId, name, description, key, leadUserId, status, createdAt}',
+        'Issue Collection: {_id, projectId, title, description, status: ("BACKLOG" | "TODO" | "IN_PROGRESS" | "IN_REVIEW" | "DONE"), priority: ("LOW" | "MEDIUM" | "HIGH" | "URGENT"), assigneeId, reporterId, createdAt}',
+        'Comment Collection: {_id, issueId, userId, content, createdAt}',
+        'ActivityLog Collection: {_id, organizationId, projectId, issueId, userId, action, metadata, timestamp}',
+      ],
+      rbacRoles: [
+        {
+          role: 'OWNER',
+          access:
+            'Full control over workspace settings, billing, member deletion, role assignment, and project creation/deletion.',
+        },
+        {
+          role: 'ADMIN',
+          access:
+            'Manage projects, invite and manage organization members, configure issue boards, and assign work.',
+        },
+        {
+          role: 'MEMBER',
+          access:
+            'Create and update issues, assign tasks, update statuses, participate in comment threads, and log activity.',
+        },
+        {
+          role: 'VIEWER',
+          access:
+            'Read-only visibility across organizations, projects, issue trackers, comments, and activity timelines.',
+        },
+      ],
+      issueStatuses: ['BACKLOG', 'TODO', 'IN_PROGRESS', 'IN_REVIEW', 'DONE'],
+      priorityLevels: ['LOW', 'MEDIUM', 'HIGH', 'URGENT'],
+      deployment:
+        'Frontend: Vercel | Backend: Render (Docker Containerized) | Database: MongoDB Atlas',
+      awsSetup:
+        'Frontend hosted and deployed on Vercel with automatic continuous integration. Backend is fully containerized with Docker and deployed as a web service on Render. Data is persisted on a high-availability MongoDB Atlas cluster with automated backups and connection pooling.',
+      whyItMatters: [
+        'Authentication: Email/password registration with bcrypt password hashing alongside Google OAuth 2.0 flow.',
+        'OAuth & Token Security: Stateless JWT authentication with secure headers and protected API routes.',
+        'Authorization & RBAC: Multi-tier role permissions (OWNER, ADMIN, MEMBER, VIEWER) enforced at middleware and controller levels.',
+        'REST API Design: Clean controller/service architecture with standardized JSON responses and error handling.',
+        'Database Modeling: Complex relational schemas in MongoDB with Mongoose document population and indexing.',
+        'React State Management: Type-safe TypeScript dashboard with project filtering, issue search, and activity tracking.',
+        'API Integration: Axios client with request/response interceptors for seamless JWT token attachment.',
+        'Error Handling: Structured try/catch pipelines with client-friendly error messaging.',
+        'Docker Containerization: Portable, reproducible backend container environments.',
+        'Cloud Deployment: Full-stack deployment architecture utilizing Vercel, Render, and MongoDB Atlas.',
+      ],
+      challenges: [
+        {
+          problem:
+            'Development teams often manage tasks, discussions, assignments, and project progress across disconnected tools, making it difficult to understand ownership, status, priorities, and activity in one place.',
+          solution:
+            'Built DevFlow as a unified workspace organizing teams into organizations, projects, and issues with threaded discussions and automated audit logging.',
+        },
+        {
+          problem:
+            'Enforcing granular multi-tenant access control across nested organization, project, and issue endpoints without leaking unauthorized data.',
+          solution:
+            'Designed reusable Express authorization middleware that checks organization membership and role permissions (OWNER, ADMIN, MEMBER, VIEWER) before delegating to controller services.',
         },
       ],
     },

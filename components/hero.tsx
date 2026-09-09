@@ -195,7 +195,7 @@ export function Hero() {
               <div className="font-mono text-[11px] text-muted-foreground uppercase tracking-wider">CGPA / 10</div>
             </div>
             <div>
-              <div className="font-mono text-2xl font-black text-primary">2+</div>
+              <div className="font-mono text-2xl font-black text-primary">3+</div>
               <div className="font-mono text-[11px] text-muted-foreground uppercase tracking-wider">Full-Stack Apps</div>
             </div>
             <div>

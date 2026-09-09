@@ -6,7 +6,7 @@ import { ArrowUpRight, BookOpen, ExternalLink, Globe, Layers, ShieldCheck, Spark
 import { GithubIcon } from '@/components/brand-icons'
 import { Section, SectionHeading } from '@/components/section'
 import { projects } from '@/lib/resume'
-import { GoCartPreview, ByteSecurePreview } from '@/components/project-preview'
+import { GoCartPreview, ByteSecurePreview, DevFlowPreview } from '@/components/project-preview'
 import { CaseStudyModal } from '@/components/case-study-modal'
 
 export function Projects() {
@@ -17,10 +17,10 @@ export function Projects() {
       <SectionHeading
         index="03"
         title="Featured Engineering Projects"
-        subtitle="Full-stack systems built from scratch — from scalable e-commerce on AWS EC2 to role-based access authentication."
+        subtitle="Full-stack systems built from scratch — from developer SaaS platforms and AWS EC2 e-commerce to role-based access authentication."
       />
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, i) => (
           <motion.article
             key={project.name}
@@ -28,7 +28,7 @@ export function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="group relative flex flex-col justify-between rounded-3xl border border-border/80 bg-white/90 p-6 sm:p-8 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-primary/50 hover:shadow-[0_15px_40px_rgba(255,91,0,0.12)] hover:translate-y-[-2px]"
+            className="group relative flex flex-col justify-between rounded-3xl border border-border/80 bg-white/90 p-6 sm:p-7 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-primary/50 hover:shadow-[0_15px_40px_rgba(255,91,0,0.12)] hover:translate-y-[-2px]"
           >
             {/* Ambient backlight glow on card hover */}
             <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-orange-500/10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
@@ -40,7 +40,12 @@ export function Projects() {
                   <Sparkles className="h-3.5 w-3.5" />
                   <span>PROJECT 0{i + 1}</span>
                 </div>
-                {project.liveUrl ? (
+                {project.statusBadge ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-orange-500/40 bg-orange-500/10 px-2.5 py-0.5 font-mono text-[10px] text-orange-600 font-semibold">
+                    <span className="h-1.5 w-1.5 rounded-full bg-orange-500 animate-pulse" />
+                    <span>{project.statusBadge}</span>
+                  </span>
+                ) : project.liveUrl ? (
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-orange-500/40 bg-orange-500/10 px-2.5 py-0.5 font-mono text-[10px] text-orange-600 font-semibold">
                     <span className="h-1.5 w-1.5 rounded-full bg-orange-500 animate-pulse" />
                     <span>AWS EC2 LIVE</span>
@@ -55,7 +60,9 @@ export function Projects() {
 
               {/* Visual UI Preview Banner Frame */}
               <div className="mb-6 overflow-hidden rounded-2xl border border-border/80 shadow-inner">
-                {project.id === 'gocart' ? <GoCartPreview /> : <ByteSecurePreview />}
+                {project.id === 'gocart' && <GoCartPreview />}
+                {project.id === 'bytesecure' && <ByteSecurePreview />}
+                {project.id === 'devflow' && <DevFlowPreview />}
               </div>
 
               {/* Title & Tagline */}
@@ -108,7 +115,7 @@ export function Projects() {
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-xs font-bold text-white shadow-[0_4px_15px_rgba(255,91,0,0.3)] transition-all hover:bg-orange-600 active:scale-95"
                   >
-                    <span>Launch App</span>
+                    <span>{project.liveLabel || 'Live Demo'}</span>
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
                 )}
@@ -120,7 +127,7 @@ export function Projects() {
                     className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-white px-4 py-2.5 text-xs font-semibold text-foreground transition-all hover:bg-slate-50 hover:border-primary/40 active:scale-95 shadow-sm"
                   >
                     <GithubIcon className="h-3.5 w-3.5" />
-                    <span>Code</span>
+                    <span>{project.repoLabel || 'GitHub'}</span>
                   </a>
                 )}
               </div>
