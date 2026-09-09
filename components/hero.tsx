@@ -22,6 +22,7 @@ import {
   Zap,
 } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, LeetcodeIcon } from '@/components/brand-icons'
+import { AnimatedCounter } from '@/components/animated-counter'
 import { profile } from '@/lib/resume'
 
 type CodeTab = 'developer' | 'server' | 'database' | 'cloud'
@@ -190,15 +191,21 @@ export function Hero() {
             className="mt-6 grid grid-cols-3 gap-3 border-y border-border/80 py-4 max-w-lg"
           >
             <div>
-              <div className="font-mono text-2xl font-black text-foreground">9.33</div>
+              <div className="font-mono text-2xl font-black text-foreground">
+                <AnimatedCounter value={9.33} decimals={2} />
+              </div>
               <div className="font-mono text-[11px] text-muted-foreground uppercase tracking-wider">CGPA / 10</div>
             </div>
             <div>
-              <div className="font-mono text-2xl font-black text-primary">3+</div>
+              <div className="font-mono text-2xl font-black text-primary">
+                <AnimatedCounter value={3} suffix="+" />
+              </div>
               <div className="font-mono text-[11px] text-muted-foreground uppercase tracking-wider">Full-Stack Apps</div>
             </div>
             <div>
-              <div className="font-mono text-2xl font-black text-foreground">7+</div>
+              <div className="font-mono text-2xl font-black text-foreground">
+                <AnimatedCounter value={7} suffix="+" />
+              </div>
               <div className="font-mono text-[11px] text-muted-foreground uppercase tracking-wider">Certifications</div>
             </div>
           </motion.div>

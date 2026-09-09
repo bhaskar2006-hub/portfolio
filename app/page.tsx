@@ -7,10 +7,17 @@ import { Experience } from '@/components/experience'
 import { Testimonials } from '@/components/testimonials'
 import { Contact } from '@/components/contact'
 import { Footer } from '@/components/footer'
+import { ScrollProgress } from '@/components/scroll-progress'
+import { CursorSpotlight } from '@/components/cursor-spotlight'
+import { ParticleBackground } from '@/components/particles'
+import { FloatingDock } from '@/components/floating-dock'
 
 export default function Page() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen relative overflow-x-clip">
+      <ScrollProgress />
+      <CursorSpotlight />
+      <ParticleBackground />
       <WelcomeScreen />
       <SiteNav />
       <Hero />
@@ -21,6 +28,7 @@ export default function Page() {
       <Testimonials />
       <Contact />
       <Footer />
+      <FloatingDock />
     </main>
   )
 }

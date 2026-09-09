@@ -21,6 +21,7 @@ import {
 } from 'lucide-react'
 import { Section, SectionHeading } from '@/components/section'
 import { TechStack } from '@/components/tech-stack'
+import { AnimatedCounter } from '@/components/animated-counter'
 import { profile, skillGroups } from '@/lib/resume'
 
 const strengtheningSkills = [
@@ -125,11 +126,15 @@ export function About() {
           {/* Key Metric Highlights */}
           <div className="mt-6 grid grid-cols-3 gap-3 border-t border-border/80 pt-5">
             <div className="rounded-2xl border border-border/80 bg-slate-50/80 p-3.5 backdrop-blur-sm shadow-2xs">
-              <div className="font-mono text-xl font-black text-primary">9.33</div>
+              <div className="font-mono text-xl font-black text-primary">
+                <AnimatedCounter value={9.33} decimals={2} />
+              </div>
               <div className="mt-0.5 text-[11px] text-muted-foreground font-medium">B.Tech CGPA / 10</div>
             </div>
             <div className="rounded-2xl border border-border/80 bg-slate-50/80 p-3.5 backdrop-blur-sm shadow-2xs">
-              <div className="font-mono text-xl font-black text-foreground">3+</div>
+              <div className="font-mono text-xl font-black text-foreground">
+                <AnimatedCounter value={3} suffix="+" />
+              </div>
               <div className="mt-0.5 text-[11px] text-muted-foreground font-medium">Full-Stack Apps</div>
             </div>
             <div className="rounded-2xl border border-border/80 bg-slate-50/80 p-3.5 backdrop-blur-sm shadow-2xs">
@@ -162,65 +167,104 @@ export function About() {
           {/* Interactive Stack Flow Visual */}
           <div className="my-4 space-y-2 font-mono text-xs">
             {/* 1. Client */}
-            <div className="flex items-center justify-between rounded-xl border border-orange-500/30 bg-orange-500/5 p-2.5 text-orange-950 shadow-2xs">
+            <motion.div
+              whileHover={{ scale: 1.02, x: 2 }}
+              className="flex items-center justify-between rounded-xl border border-orange-500/30 bg-orange-500/5 p-2.5 text-orange-950 shadow-2xs transition-colors"
+            >
               <div className="flex items-center gap-2">
                 <Globe className="h-3.5 w-3.5 text-orange-500" />
                 <span className="font-bold text-xs">CLIENT</span>
               </div>
               <span className="text-[11px] text-orange-700 font-medium">React + TypeScript + Context API</span>
-            </div>
+            </motion.div>
 
-            <div className="flex items-center justify-center text-primary/70 py-0.5">
-              <span className="text-xs font-bold">↓</span>
+            <div className="flex items-center justify-center py-0.5">
+              <motion.span
+                animate={{ y: [0, 3, 0], opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="text-xs font-bold text-primary"
+              >
+                ↓
+              </motion.span>
             </div>
 
             {/* 2. API */}
-            <div className="flex items-center justify-between rounded-xl border border-amber-500/30 bg-amber-500/5 p-2.5 text-amber-950 shadow-2xs">
+            <motion.div
+              whileHover={{ scale: 1.02, x: 2 }}
+              className="flex items-center justify-between rounded-xl border border-amber-500/30 bg-amber-500/5 p-2.5 text-amber-950 shadow-2xs transition-colors"
+            >
               <div className="flex items-center gap-2">
                 <Server className="h-3.5 w-3.5 text-amber-600" />
                 <span className="font-bold text-xs">API</span>
               </div>
               <span className="text-[11px] text-amber-700 font-medium">Node.js + Express + REST APIs</span>
-            </div>
+            </motion.div>
 
-            <div className="flex items-center justify-center text-primary/70 py-0.5">
-              <span className="text-xs font-bold">↓</span>
+            <div className="flex items-center justify-center py-0.5">
+              <motion.span
+                animate={{ y: [0, 3, 0], opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+                className="text-xs font-bold text-primary"
+              >
+                ↓
+              </motion.span>
             </div>
 
             {/* 3. Authorization */}
-            <div className="flex items-center justify-between rounded-xl border border-rose-500/30 bg-rose-500/5 p-2.5 text-rose-950 shadow-2xs">
+            <motion.div
+              whileHover={{ scale: 1.02, x: 2 }}
+              className="flex items-center justify-between rounded-xl border border-rose-500/30 bg-rose-500/5 p-2.5 text-rose-950 shadow-2xs transition-colors"
+            >
               <div className="flex items-center gap-2">
                 <Lock className="h-3.5 w-3.5 text-rose-600" />
                 <span className="font-bold text-xs">AUTHORIZATION</span>
               </div>
               <span className="text-[11px] text-rose-700 font-medium">JWT + RBAC + Validation</span>
-            </div>
+            </motion.div>
 
-            <div className="flex items-center justify-center text-primary/70 py-0.5">
-              <span className="text-xs font-bold">↓</span>
+            <div className="flex items-center justify-center py-0.5">
+              <motion.span
+                animate={{ y: [0, 3, 0], opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+                className="text-xs font-bold text-primary"
+              >
+                ↓
+              </motion.span>
             </div>
 
             {/* 4. Database */}
-            <div className="flex items-center justify-between rounded-xl border border-yellow-500/30 bg-yellow-500/5 p-2.5 text-yellow-950 shadow-2xs">
+            <motion.div
+              whileHover={{ scale: 1.02, x: 2 }}
+              className="flex items-center justify-between rounded-xl border border-yellow-500/30 bg-yellow-500/5 p-2.5 text-yellow-950 shadow-2xs transition-colors"
+            >
               <div className="flex items-center gap-2">
                 <Database className="h-3.5 w-3.5 text-yellow-600" />
                 <span className="font-bold text-xs">DATABASE</span>
               </div>
               <span className="text-[11px] text-yellow-700 font-medium">MongoDB + Mongoose</span>
-            </div>
+            </motion.div>
 
-            <div className="flex items-center justify-center text-primary/70 py-0.5">
-              <span className="text-xs font-bold">↓</span>
+            <div className="flex items-center justify-center py-0.5">
+              <motion.span
+                animate={{ y: [0, 3, 0], opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
+                className="text-xs font-bold text-primary"
+              >
+                ↓
+              </motion.span>
             </div>
 
             {/* 5. Cloud */}
-            <div className="flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-2.5 text-emerald-950 shadow-2xs">
+            <motion.div
+              whileHover={{ scale: 1.02, x: 2 }}
+              className="flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-2.5 text-emerald-950 shadow-2xs transition-colors"
+            >
               <div className="flex items-center gap-2">
                 <Cloud className="h-3.5 w-3.5 text-emerald-600" />
                 <span className="font-bold text-xs">CLOUD</span>
               </div>
               <span className="text-[11px] text-emerald-700 font-medium">Vercel + Render + MongoDB Atlas</span>
-            </div>
+            </motion.div>
           </div>
 
           {/* Footer Badge */}
