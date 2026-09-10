@@ -82,12 +82,12 @@ export function Experience() {
     setCarouselIndex(0)
   }, [activeCategory, selectedTag, searchQuery])
 
-  // Automatic Carousel Rotation (auto-plays, pauses smoothly on user hover/touch or when modal is open)
+  // Automatic Carousel Rotation (auto-plays every 2.2s, pauses smoothly on user hover/touch or when modal is open)
   useEffect(() => {
     if (isHovered || isModalOpen || viewMode !== 'carousel' || filteredCertifications.length <= 1) return
     const interval = setInterval(() => {
       setCarouselIndex((prev) => (prev + 1) % filteredCertifications.length)
-    }, 4000)
+    }, 2200)
     return () => clearInterval(interval)
   }, [isHovered, isModalOpen, viewMode, filteredCertifications.length])
 
