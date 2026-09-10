@@ -45,6 +45,8 @@ export const skillGroups = [
 export const DEVFLOW_LIVE_URL = 'https://devflow123.vercel.app/'
 export const DEVFLOW_GITHUB_URL = 'https://github.com/bhaskar2006-hub/DevFlow'
 
+export type Project = (typeof projects)[number]
+
 export const projects = [
   {
     id: 'gocart',

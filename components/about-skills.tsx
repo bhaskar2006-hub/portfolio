@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   Award,
@@ -330,6 +331,8 @@ export function About() {
 }
 
 export function Skills() {
+  const [activeTab, setActiveTab] = useState<number | 'all'>('all')
+
   return (
     <Section id="skills" className="relative bg-orange-500/[0.02] border-y border-border/60">
       <SectionHeading
@@ -341,37 +344,71 @@ export function Skills() {
       {/* 3D Interactive Orbit Stack */}
       <TechStack />
 
-      {/* Categorized Engineering Stack Cards (6 compact categories) */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {skillGroups.map((group, i) => (
-          <motion.div
+      {/* Mobile Interactive Category Filter Tabs */}
+      <div className="flex sm:hidden items-center gap-1.5 overflow-x-auto pb-3 mb-3 scrollbar-none">
+        <button
+          type="button"
+          onClick={() => setActiveTab('all')}
+          className={`shrink-0 rounded-xl px-3 py-1.5 font-mono text-xs font-semibold transition-all ${
+            activeTab === 'all'
+              ? 'bg-primary text-white shadow-sm'
+              : 'border border-border/80 bg-white text-slate-600'
+          }`}
+        >
+          All Skills ({skillGroups.reduce((acc, g) => acc + g.items.length, 0)})
+        </button>
+        {skillGroups.map((group, idx) => (
+          <button
             key={group.label}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.45, delay: i * 0.06 }}
-            className="group rounded-2xl border border-border/80 bg-white/90 p-5 shadow-md backdrop-blur-md transition-all hover:border-primary/40 hover:shadow-lg"
+            type="button"
+            onClick={() => setActiveTab(idx)}
+            className={`shrink-0 rounded-xl px-3 py-1.5 font-mono text-xs font-semibold transition-all ${
+              activeTab === idx
+                ? 'bg-primary text-white shadow-sm'
+                : 'border border-border/80 bg-white text-slate-600'
+            }`}
           >
-            <div className="mb-3 flex items-center justify-between border-b border-border/80 pb-2.5">
-              <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
-                {group.label}
-              </h3>
-              <span className="font-mono text-[10px] text-muted-foreground">
-                {group.items.length} technologies
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {group.items.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-lg border border-border/80 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-primary/50 hover:bg-orange-500/5 hover:text-primary font-mono"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </motion.div>
+            {group.label.split(' ')[0]}
+          </button>
         ))}
+      </div>
+
+      {/* Categorized Engineering Stack Cards */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {skillGroups.map((group, i) => {
+          const isVisibleOnMobile = activeTab === 'all' || activeTab === i
+          if (!isVisibleOnMobile) return null
+
+          return (
+            <motion.div
+              key={group.label}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.45, delay: i * 0.05 }}
+              className="group rounded-2xl border border-border/80 bg-white/90 p-4 sm:p-5 shadow-md backdrop-blur-md transition-all hover:border-primary/40 hover:shadow-lg"
+            >
+              <div className="mb-3 flex items-center justify-between border-b border-border/80 pb-2.5">
+                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-primary">
+                  {group.label}
+                </h3>
+                <span className="font-mono text-[10px] text-muted-foreground">
+                  {group.items.length} tech
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {group.items.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-lg border border-border/80 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-primary/50 hover:bg-orange-500/5 hover:text-primary font-mono"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          )
+        })}
       </div>
     </Section>
   )
