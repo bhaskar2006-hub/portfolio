@@ -21,8 +21,6 @@ import {
   Filter,
   Grid3X3,
   SlidersHorizontal,
-  Play,
-  Pause,
   X,
   Tag,
   ShieldCheck,
@@ -42,7 +40,7 @@ export function Experience() {
   const [searchQuery, setSearchQuery] = useState('')
   const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel')
   const [carouselIndex, setCarouselIndex] = useState(0)
-  const [isAutoPlay, setIsAutoPlay] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
 
   // Filter categories with count calculations
   const categories = useMemo(() => {
@@ -84,14 +82,14 @@ export function Experience() {
     setCarouselIndex(0)
   }, [activeCategory, selectedTag, searchQuery])
 
-  // Optional Carousel Autoplay
+  // Automatic Carousel Rotation (auto-plays, pauses smoothly on user hover/touch or when modal is open)
   useEffect(() => {
-    if (!isAutoPlay || filteredCertifications.length <= 1) return
+    if (isHovered || isModalOpen || viewMode !== 'carousel' || filteredCertifications.length <= 1) return
     const interval = setInterval(() => {
       setCarouselIndex((prev) => (prev + 1) % filteredCertifications.length)
-    }, 4500)
+    }, 4000)
     return () => clearInterval(interval)
-  }, [isAutoPlay, filteredCertifications.length])
+  }, [isHovered, isModalOpen, viewMode, filteredCertifications.length])
 
   const handleOpenCertificate = (cert: Certification) => {
     setSelectedCertificate(cert)
@@ -335,51 +333,33 @@ export function Experience() {
             </p>
           </div>
 
-          {/* View Mode Switcher & Controls */}
-          <div className="flex items-center gap-2">
-            <div className="flex items-center rounded-xl border border-border/80 bg-white p-1 shadow-2xs">
-              <button
-                type="button"
-                onClick={() => setViewMode('carousel')}
-                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-xs font-semibold transition-all cursor-pointer ${
-                  viewMode === 'carousel'
-                    ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-xs'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <SlidersHorizontal className="h-3.5 w-3.5" />
-                <span>Carousel</span>
-              </button>
+          {/* View Mode Switcher */}
+          <div className="flex items-center rounded-xl border border-border/80 bg-white p-1 shadow-2xs self-start md:self-auto">
+            <button
+              type="button"
+              onClick={() => setViewMode('carousel')}
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-xs font-semibold transition-all cursor-pointer ${
+                viewMode === 'carousel'
+                  ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <SlidersHorizontal className="h-3.5 w-3.5" />
+              <span>Carousel</span>
+            </button>
 
-              <button
-                type="button"
-                onClick={() => setViewMode('grid')}
-                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-xs font-semibold transition-all cursor-pointer ${
-                  viewMode === 'grid'
-                    ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-xs'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <Grid3X3 className="h-3.5 w-3.5" />
-                <span>Grid</span>
-              </button>
-            </div>
-
-            {viewMode === 'carousel' && (
-              <button
-                type="button"
-                onClick={() => setIsAutoPlay((v) => !v)}
-                className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-colors cursor-pointer ${
-                  isAutoPlay 
-                    ? 'border-primary bg-orange-500/10 text-primary' 
-                    : 'border-border/80 bg-white text-muted-foreground hover:text-foreground'
-                }`}
-                title={isAutoPlay ? 'Pause Autoplay' : 'Start Autoplay'}
-                aria-label={isAutoPlay ? 'Pause Autoplay' : 'Start Autoplay'}
-              >
-                {isAutoPlay ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => setViewMode('grid')}
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-xs font-semibold transition-all cursor-pointer ${
+                viewMode === 'grid'
+                  ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <Grid3X3 className="h-3.5 w-3.5" />
+              <span>Grid</span>
+            </button>
           </div>
         </div>
 
@@ -466,7 +446,13 @@ export function Experience() {
         {viewMode === 'carousel' && (
           <div>
             {filteredCertifications.length > 0 ? (
-              <div className="relative overflow-hidden rounded-3xl border border-orange-500/30 bg-white/95 shadow-xl backdrop-blur-xl p-4 sm:p-7">
+              <div 
+                className="relative overflow-hidden rounded-3xl border border-orange-500/30 bg-white/95 shadow-xl backdrop-blur-xl p-4 sm:p-7"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onTouchStart={() => setIsHovered(true)}
+                onTouchEnd={() => setIsHovered(false)}
+              >
                 {/* Carousel Card Animated Container */}
                 <div className="grid lg:grid-cols-12 gap-6 items-center">
                   
